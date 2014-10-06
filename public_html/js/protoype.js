@@ -2,7 +2,8 @@ $(document).ready(function() {
   $('[data-ct-form-default]').each(function() {
     var type = $(this).data('ct-form-default');
     if (type === 'today') {
-      //this.value = new Date();
+      var today = new Date();
+      this.value = today.getDate() + '/' + today.getMonth() + '/' + today.getFullYear();
     }
   });
 });
@@ -58,8 +59,7 @@ $(document).ready(function() {
   });
 
   $('[data-ct-ui-restart]').on('click', function() {
-    stage = 0;
-    advanceStage();
+    document.location.reload(false);
   });
 
 });
