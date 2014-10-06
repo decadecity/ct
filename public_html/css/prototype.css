@@ -1,3 +1,8 @@
-.ui--hidden {
+.ui--removed {
   display: none;
+}
+.ui--hidden {
+  position: absolute;
+  left: -999em;
+  top: -999em;
 }

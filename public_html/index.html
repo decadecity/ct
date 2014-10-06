@@ -15,10 +15,10 @@
     <div data-ct-ui-stage="1">
       <h2>When?</h2>
       <div data-ct-ui-hide-then>
-        <p><button data-ct-ui-stage-change>Now</button></p>
+        <p><button data-ct-ui-stage-change="click">Now</button></p>
         <p><button data-ct-ui-show-target="then">Then</button></p>
       </div>
-      <div data-ct-ui-show-then class="ui--hidden">
+      <div data-ct-ui-show-then class="ui--removed">
         <p>
           <label>Time of day
             <select>
@@ -32,29 +32,40 @@
           </label>
         </p>
         <p data-ct-ui-checked-hide-when>
-          <label>Today <input type="radio" data-ct-ui-stage-change/></label>
+          <label>Today <input type="radio" data-ct-ui-stage-change="checked"/></label>
           <label>Another day <input type="radio" data-ct-ui-show-checked="when"/></label>
         </p>
-        <div data-ct-ui-checked-show-when class="ui--hidden">
+        <div data-ct-ui-checked-show-when class="ui--removed">
           <p>
             <label>Date
-              <input type="date" data-ct-ui-stage-change/>
+              <input type="date" placeholder="dd/mm/yyyy" data-ct-ui-stage-change="complete" data-ct-form-default="today"/>
             </label>
           </p>
         </div>
       </div>
     </div>
-    <div data-ct-ui-stage-change class="ui--hidden">
-      <p>
-        <label>Recent
-          <select>
-            <option>Espresso</option>
-            <option>Americano</option>
-            <option>Relentless</option>
-            <option>Green tea</option>
-          </select>
-        </label>
-      </p>
+    <div data-ct-ui-stage="2" class="ui--removed">
+      <div data-ct-ui-hide-other>
+        <p>
+          <label><span class="ui--hidden">Recent</span>
+            <select data-ct-ui-stage-change="change">
+              <option>--Select recent--</option>
+              <option>Espresso</option>
+              <option>Americano</option>
+              <option>Relentless</option>
+              <option>Green tea</option>
+            </select>
+          </label>
+        </p>
+        <p><button data-ct-ui-show-target="other">Other</button></p>
+      </div>
+    </div>
+    <div data-ct-ui-show-other class="ui--removed">
+      <p>Enter new item.</p>
+    </div>
+    <div data-ct-ui-stage="3" class="ui--removed">
+      <p>Item recorded.</p>
+      <button data-ct-ui-restart>Record another</button>
     </div>
   </body>
 </html>
