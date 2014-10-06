@@ -1,0 +1,60 @@
+<!DOCTYPE htm>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="css/prototype.css"/>
+    <script src="js/jquery.js"/></script>
+    <script src="js/protoype.js"/></script>
+    <!-- prefetch -->
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <style></style>
+    <title>Caffeine tracker</title>
+    <meta name="" value=""/>
+  </head>
+  <body>
+    <div data-ct-ui-stage="1">
+      <h2>When?</h2>
+      <div data-ct-ui-hide-then>
+        <p><button data-ct-ui-stage-change>Now</button></p>
+        <p><button data-ct-ui-show-target="then">Then</button></p>
+      </div>
+      <div data-ct-ui-show-then class="ui--hidden">
+        <p>
+          <label>Time of day
+            <select>
+              <option>Breakfast</option>
+              <option>Morning</option>
+              <option>Lunch</option>
+              <option>Afternoon</option>
+              <option>Dinner</option>
+              <option>Evening</option>
+            </select>
+          </label>
+        </p>
+        <p data-ct-ui-checked-hide-when>
+          <label>Today <input type="radio" data-ct-ui-stage-change/></label>
+          <label>Another day <input type="radio" data-ct-ui-show-checked="when"/></label>
+        </p>
+        <div data-ct-ui-checked-show-when class="ui--hidden">
+          <p>
+            <label>Date
+              <input type="date" data-ct-ui-stage-change/>
+            </label>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div data-ct-ui-stage-change class="ui--hidden">
+      <p>
+        <label>Recent
+          <select>
+            <option>Espresso</option>
+            <option>Americano</option>
+            <option>Relentless</option>
+            <option>Green tea</option>
+          </select>
+        </label>
+      </p>
+    </div>
+  </body>
+</html>
