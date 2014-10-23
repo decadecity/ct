@@ -6,3 +6,7 @@
   left: -999em;
   top: -999em;
 }
+
+.disabled {
+  opacity: 0.5;
+}

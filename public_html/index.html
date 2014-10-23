@@ -49,7 +49,7 @@
       </div>
       <div data-ct-ui-stage="2" class="ui--removed">
         <h2>What?</h2>
-        <div data-ct-ui-hide-drink>
+        <div data-ct-ui-hide-item>
           <p>
             <label><span class="ui--hidden">Recent</span>
               <select data-ct-ui-stage-change="change" data-ct-data-item="this">
@@ -61,14 +61,14 @@
               </select>
             </label>
           </p>
-          <p><button type="button" data-ct-ui-show-target="drink">Other</button></p>
+          <p><button type="button" data-ct-ui-show-target="item">Other</button></p>
         </div>
       </div>
-      <div data-ct-ui-show-drink class="ui--removed">
+      <div data-ct-ui-show-item data-ct-data-new-item class="ui--removed">
         <p>Enter new item.</p>
         <p><label>Name<input type="text"/></label></p>
-        <p><label>Caffeine content (mg)<input type="number"/></label>
-        <p>
+        <p data-ct-ui-new-item-mode="absolute"><label>Caffeine content (mg)<input type="number"/></label></p>
+        <div data-ct-ui-new-item-mode="item">
           <fieldset><ledgend>Caffeine concentration</ledgend>
             <label>mg<input type="number"/></label>
             per
@@ -80,8 +80,8 @@
             <label>cl<input type="radio" name="measure" value="cl"/></label>
             <label>l<input type="radio" name="measure" value="l"/></label>
           </fieldset>
-        </p>
-        <p><label>Number of shots of espresso<input type="number"/></p>
+        </div>
+        <p data-ct-ui-new-item-mode="espresso"><label>Number of shots of espresso<input type="number"/></p>
       </div>
       <div data-ct-ui-stage="3" class="ui--removed" data-ct-ui-result="true">
         <p data-ct-ui-result-text>Item recorded.</p>

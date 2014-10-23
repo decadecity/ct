@@ -100,6 +100,35 @@
     });
 
 
+    $('[data-ct-data-new-item] input').on('click, change, keyup', function(e) {
+
+      var modes = $('[data-ct-ui-new-item-mode]');
+
+      function resetForm() {
+        modes.each(function() {
+          $(this).val('');
+          $(this).removeClass('disabled');
+          $(this).find('input').prop('disabled', false);
+        });
+      }
+
+      if (!$(this).val()) {
+        resetForm();
+        return;
+      }
+
+      var mode = $(e.target).parents('[data-ct-ui-new-item-mode]');
+      modes.each(function() {
+        if ($(this).data('ct-ui-new-item-mode') === mode.data('ct-ui-new-item-mode')) {
+          $(this).removeClass('disabled');
+          $(this).find('input').prop('disabled', false);
+        } else {
+          $(this).addClass('disabled');
+          $(this).find('input').prop('disabled', true);
+        }
+      });
+    });
+
     $('[data-ct-data-date]').on('click, change', function() {
       var type = $(this).data('ct-data-date');
       var time;
