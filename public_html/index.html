@@ -66,10 +66,30 @@
       </div>
       <div data-ct-ui-show-drink class="ui--removed">
         <p>Enter new item.</p>
+        <p><label>Name<input type="text"/></label></p>
+        <p><label>Caffeine content (mg)<input type="number"/></label>
+        <p>
+          <fieldset><ledgend>Caffeine concentration</ledgend>
+            <label>mg<input type="number"/></label>
+            per
+            <label>ml<input type="number"/></label>
+          </fieldset>
+          <label>Quantity <input type="number"/></label>
+          <fieldset><legend>Measure</legend>
+            <label>ml<input type="radio" name="measure" value="ml"/></label>
+            <label>cl<input type="radio" name="measure" value="cl"/></label>
+            <label>l<input type="radio" name="measure" value="l"/></label>
+          </fieldset>
+        </p>
+        <p><label>Number of shots of espresso<input type="number"/></p>
       </div>
       <div data-ct-ui-stage="3" class="ui--removed" data-ct-ui-result="true">
         <p data-ct-ui-result-text>Item recorded.</p>
         <input type="reset" data-ct-ui-restart value="Record another"/>
+      </div>
+      <div data-ct-ui-abort>
+        <hr/>
+        <p><input type="reset" data-ct-ui-restart value="Abort"/></p>
       </div>
     </form>
   </body>

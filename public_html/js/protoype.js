@@ -26,10 +26,13 @@
       stage += 1;
       var current_stage = $('[data-ct-ui-stage=' + stage + ']');
       $('[data-ct-ui-stage]').addClass('ui--removed');
+      $('[data-ct-ui-abort]').removeClass('ui--removed');
       current_stage.removeClass('ui--removed');
       window.data = data;
       if (current_stage.data('ct-ui-result')) {
+        // This is the result stage
         window.setTimeout(showResult, 0); //TODO: FIX HACK!
+        $('[data-ct-ui-abort]').addClass('ui--removed');
       }
     };
 
