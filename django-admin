@@ -1,0 +1,8 @@
+#!/bin/bash
+BASE_PATH=`dirname $0`
+
+source $BASE_PATH/caffeinetracker.venv/bin/activate
+
+export PYTHONWARNINGS="d"
+
+python $BASE_PATH/manage.py "$@"
