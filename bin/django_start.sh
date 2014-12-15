@@ -5,7 +5,7 @@
 LOGFILE=$HOME/caffeinetracker/log/gunicorn.log
 
 echo "Starting Django Gunicorn..."
-./caffeinetracker.venv/bin/gunicorn wsgi -b 127.0.0.1:8013 \
+./caffeinetracker.venv/bin/gunicorn wsgi -b 127.0.0.1:8014 \
 	--workers 3 \
 	--name caffeinetracker \
 	--daemon \

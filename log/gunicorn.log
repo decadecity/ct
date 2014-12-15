@@ -1,0 +1,112 @@
+bin/django_start.sh: line 8: ./caffeinetracker.venv/bin/gunicorn: No such file or directory
+[2014-12-15 14:37:18 +0000] [18180] [INFO] Starting gunicorn 19.1.1
+[2014-12-15 14:37:18 +0000] [18180] [INFO] Listening at: http://127.0.0.1:8014 (18180)
+[2014-12-15 14:37:18 +0000] [18180] [INFO] Using worker: sync
+[2014-12-15 14:37:18 +0000] [18185] [INFO] Booting worker with pid: 18185
+[2014-12-15 14:37:18 +0000] [18185] [ERROR] Exception in worker process:
+Traceback (most recent call last):
+  File "/home/ubuntu/caffeinetracker/caffeinetracker.venv/lib/python3.2/site-packages/gunicorn/arbiter.py", line 507, in spawn_worker
+    worker.init_process()
+  File "/home/ubuntu/caffeinetracker/caffeinetracker.venv/lib/python3.2/site-packages/gunicorn/workers/base.py", line 114, in init_process
+    self.wsgi = self.app.wsgi()
+  File "/home/ubuntu/caffeinetracker/caffeinetracker.venv/lib/python3.2/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+  File "/home/ubuntu/caffeinetracker/caffeinetracker.venv/lib/python3.2/site-packages/gunicorn/app/wsgiapp.py", line 65, in load
+    return self.load_wsgiapp()
+  File "/home/ubuntu/caffeinetracker/caffeinetracker.venv/lib/python3.2/site-packages/gunicorn/app/wsgiapp.py", line 52, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/ubuntu/caffeinetracker/caffeinetracker.venv/lib/python3.2/site-packages/gunicorn/util.py", line 356, in import_app
+    __import__(module)
+ImportError: No module named wsgi
+Traceback (most recent call last):
+  File "/home/ubuntu/caffeinetracker/caffeinetracker.venv/lib/python3.2/site-packages/gunicorn/arbiter.py", line 507, in spawn_worker
+    worker.init_process()
+  File "/home/ubuntu/caffeinetracker/caffeinetracker.venv/lib/python3.2/site-packages/gunicorn/workers/base.py", line 114, in init_process
+    self.wsgi = self.app.wsgi()
+  File "/home/ubuntu/caffeinetracker/caffeinetracker.venv/lib/python3.2/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+  File "/home/ubuntu/caffeinetracker/caffeinetracker.venv/lib/python3.2/site-packages/gunicorn/app/wsgiapp.py", line 65, in load
+    return self.load_wsgiapp()
+  File "/home/ubuntu/caffeinetracker/caffeinetracker.venv/lib/python3.2/site-packages/gunicorn/app/wsgiapp.py", line 52, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/ubuntu/caffeinetracker/caffeinetracker.venv/lib/python3.2/site-packages/gunicorn/util.py", line 356, in import_app
+    __import__(module)
+ImportError: No module named wsgi
+[2014-12-15 14:37:18 +0000] [18185] [INFO] Worker exiting (pid: 18185)
+[2014-12-15 14:37:18 +0000] [18186] [INFO] Booting worker with pid: 18186
+[2014-12-15 14:37:18 +0000] [18186] [ERROR] Exception in worker process:
+Traceback (most recent call last):
+  File "/home/ubuntu/caffeinetracker/caffeinetracker.venv/lib/python3.2/site-packages/gunicorn/arbiter.py", line 507, in spawn_worker
+    worker.init_process()
+  File "/home/ubuntu/caffeinetracker/caffeinetracker.venv/lib/python3.2/site-packages/gunicorn/workers/base.py", line 114, in init_process
+    self.wsgi = self.app.wsgi()
+  File "/home/ubuntu/caffeinetracker/caffeinetracker.venv/lib/python3.2/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+  File "/home/ubuntu/caffeinetracker/caffeinetracker.venv/lib/python3.2/site-packages/gunicorn/app/wsgiapp.py", line 65, in load
+    return self.load_wsgiapp()
+  File "/home/ubuntu/caffeinetracker/caffeinetracker.venv/lib/python3.2/site-packages/gunicorn/app/wsgiapp.py", line 52, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/ubuntu/caffeinetracker/caffeinetracker.venv/lib/python3.2/site-packages/gunicorn/util.py", line 356, in import_app
+    __import__(module)
+ImportError: No module named wsgi
+Traceback (most recent call last):
+  File "/home/ubuntu/caffeinetracker/caffeinetracker.venv/lib/python3.2/site-packages/gunicorn/arbiter.py", line 507, in spawn_worker
+    worker.init_process()
+  File "/home/ubuntu/caffeinetracker/caffeinetracker.venv/lib/python3.2/site-packages/gunicorn/workers/base.py", line 114, in init_process
+    self.wsgi = self.app.wsgi()
+  File "/home/ubuntu/caffeinetracker/caffeinetracker.venv/lib/python3.2/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+  File "/home/ubuntu/caffeinetracker/caffeinetracker.venv/lib/python3.2/site-packages/gunicorn/app/wsgiapp.py", line 65, in load
+    return self.load_wsgiapp()
+  File "/home/ubuntu/caffeinetracker/caffeinetracker.venv/lib/python3.2/site-packages/gunicorn/app/wsgiapp.py", line 52, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/ubuntu/caffeinetracker/caffeinetracker.venv/lib/python3.2/site-packages/gunicorn/util.py", line 356, in import_app
+    __import__(module)
+ImportError: No module named wsgi
+[2014-12-15 14:37:18 +0000] [18186] [INFO] Worker exiting (pid: 18186)
+[2014-12-15 14:38:22 +0000] [18210] [INFO] Starting gunicorn 19.1.1
+[2014-12-15 14:38:22 +0000] [18210] [INFO] Listening at: http://127.0.0.1:8014 (18210)
+[2014-12-15 14:38:22 +0000] [18210] [INFO] Using worker: sync
+[2014-12-15 14:38:22 +0000] [18215] [INFO] Booting worker with pid: 18215
+[2014-12-15 14:38:22 +0000] [18216] [INFO] Booting worker with pid: 18216
+[2014-12-15 14:38:22 +0000] [18217] [INFO] Booting worker with pid: 18217
+[2014-12-15 14:45:42 +0000] [18210] [INFO] Handling signal: term
+[2014-12-15 14:45:42 +0000] [18216] [INFO] Worker exiting (pid: 18216)
+[2014-12-15 14:45:42 +0000] [18215] [INFO] Worker exiting (pid: 18215)
+[2014-12-15 14:45:42 +0000] [18217] [INFO] Worker exiting (pid: 18217)
+[2014-12-15 14:45:42 +0000] [18210] [INFO] Shutting down: Master
+[2014-12-15 14:45:42 +0000] [18352] [INFO] Starting gunicorn 19.1.1
+[2014-12-15 14:45:42 +0000] [18352] [INFO] Listening at: http://127.0.0.1:8014 (18352)
+[2014-12-15 14:45:42 +0000] [18352] [INFO] Using worker: sync
+[2014-12-15 14:45:42 +0000] [18357] [INFO] Booting worker with pid: 18357
+[2014-12-15 14:45:42 +0000] [18358] [INFO] Booting worker with pid: 18358
+[2014-12-15 14:45:43 +0000] [18359] [INFO] Booting worker with pid: 18359
+[2014-12-15 14:48:42 +0000] [18352] [INFO] Handling signal: term
+[2014-12-15 14:48:42 +0000] [18357] [INFO] Worker exiting (pid: 18357)
+[2014-12-15 14:48:42 +0000] [18358] [INFO] Worker exiting (pid: 18358)
+[2014-12-15 14:48:42 +0000] [18359] [INFO] Worker exiting (pid: 18359)
+[2014-12-15 14:48:42 +0000] [18352] [INFO] Shutting down: Master
+[2014-12-15 14:48:43 +0000] [18416] [INFO] Starting gunicorn 19.1.1
+[2014-12-15 14:48:43 +0000] [18416] [INFO] Listening at: http://127.0.0.1:8014 (18416)
+[2014-12-15 14:48:43 +0000] [18416] [INFO] Using worker: sync
+[2014-12-15 14:48:43 +0000] [18421] [INFO] Booting worker with pid: 18421
+[2014-12-15 14:48:43 +0000] [18422] [INFO] Booting worker with pid: 18422
+[2014-12-15 14:48:43 +0000] [18423] [INFO] Booting worker with pid: 18423
+[2014-12-15 14:51:07 +0000] [18416] [INFO] Handling signal: term
+[2014-12-15 14:51:07 +0000] [18421] [INFO] Worker exiting (pid: 18421)
+[2014-12-15 14:51:07 +0000] [18422] [INFO] Worker exiting (pid: 18422)
+[2014-12-15 14:51:07 +0000] [18423] [INFO] Worker exiting (pid: 18423)
+[2014-12-15 14:51:07 +0000] [18416] [INFO] Shutting down: Master
+[2014-12-15 14:51:07 +0000] [18445] [INFO] Starting gunicorn 19.1.1
+[2014-12-15 14:51:07 +0000] [18445] [INFO] Listening at: http://127.0.0.1:8014 (18445)
+[2014-12-15 14:51:07 +0000] [18445] [INFO] Using worker: sync
+[2014-12-15 14:51:07 +0000] [18450] [INFO] Booting worker with pid: 18450
+[2014-12-15 14:51:07 +0000] [18451] [INFO] Booting worker with pid: 18451
+[2014-12-15 14:51:07 +0000] [18452] [INFO] Booting worker with pid: 18452
+./bin/django_start.sh: line 8: ./caffeinetracker.venv/bin/gunicorn: No such file or directory
+[2014-12-15 16:56:06 +0000] [24941] [INFO] Starting gunicorn 19.1.1
+[2014-12-15 16:56:06 +0000] [24941] [INFO] Listening at: http://127.0.0.1:8014 (24941)
+[2014-12-15 16:56:06 +0000] [24941] [INFO] Using worker: sync
+[2014-12-15 16:56:06 +0000] [24944] [INFO] Booting worker with pid: 24944
+[2014-12-15 16:56:06 +0000] [24945] [INFO] Booting worker with pid: 24945
+[2014-12-15 16:56:06 +0000] [24946] [INFO] Booting worker with pid: 24946

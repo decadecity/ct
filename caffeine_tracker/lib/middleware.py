@@ -17,7 +17,7 @@ def get_head_css():
             with open(filename) as f:
                 head_css = f.read()
                 return head_css
-        except FileNotFoundError:
+        except (OSError, IOError):
             return '/* File: %s not found. */' % (filename)
     else:
         return head_css
