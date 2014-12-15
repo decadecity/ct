@@ -4,6 +4,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
+from caffeine_tracker.lib.utils import HttpResponseGetAfterPost
+
 from caffeine_tracker.apps.data.models import Record, Item
 
 from .forms import RecordForm
@@ -28,6 +30,7 @@ def new_item(request):
             record.user = request.user
             record.save()
             messages.success(request, 'Item recorded.')
+            return HttpResponseGetAfterPost(request.path)
 
     else:
         form = RecordForm()
