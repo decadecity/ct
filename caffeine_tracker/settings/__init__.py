@@ -20,11 +20,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = '76+4!lqfl02wa=!2ms5z3-y4xo-vn0-d%ee89dae06ik+e*63x'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-TEMPLATE_DEBUG = True
+TEMPLATE_DEBUG = DEBUG
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*'] #TODO
 
 
 # Application definition
@@ -38,9 +38,15 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'rest_framework',
+
+    'caffeine_tracker.apps.data',
+    'caffeine_tracker.apps.record',
 )
 
 MIDDLEWARE_CLASSES = (
+    'django.middleware.gzip.GZipMiddleware',
+    'caffeine_tracker.lib.futurama.AddQuote', # Should come after gzip
+    'caffeine_tracker.lib.middleware.AddVariablesMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -78,6 +84,24 @@ USE_L10N = False
 
 USE_TZ = True
 
+# Templates
+
+TEMPLATE_DIRS = (
+    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    BASE_DIR + '/templates',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'django.contrib.auth.context_processors.auth',
+    'django.contrib.messages.context_processors.messages',
+    'django.core.context_processors.request',
+)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
@@ -91,3 +115,25 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ]
 }
+
+CACHES = {}
+
+CACHES['default'] = {
+    'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+    'TIMEOUT': 60 * 60 * 24,
+}
+
+def _get_git_revision():
+    with open(BASE_DIR + '/../.git/logs/HEAD') as log:
+        return log.readlines()[-1].strip().split()[1]
+
+CACHE_BUSTER = _get_git_revision()[:10]
+
+INLINE_CSS = True
+
+OFFLINE = False
+
+try:
+    from .local import *
+except ImportError:
+    pass

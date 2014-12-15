@@ -10,6 +10,7 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^item/new', 'caffeine_tracker.apps.record.views.new_item'),
 )
 
 # Serializers define the API representation.

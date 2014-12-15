@@ -1,0 +1,3 @@
+[submodule "caffeine_tracker/lib/futurama"]
+	path = caffeine_tracker/lib/futurama
+	url = git@github.com:decadecity/X-Futurama-headers.git

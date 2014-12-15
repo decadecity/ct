@@ -1,0 +1,39 @@
+{% load static from staticfiles %}
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8"/>
+    <!--<link rel="stylesheet" href=""/>
+    <script src="" async/></script>-->
+    <!-- prefetch -->
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <style>@ms-viewport, @viewport { width: device-width !important; }</style>
+{% if request.extra.INLINE_CSS %}
+      <!-- Inline a basic stylesheet to improve page render speed and fault tolerance: hhttp://decadecity.net/blog/2014/05/07/asynchronous-css-delivery-for-fault-tolerance -->
+      <style>{{ request.extra.HEAD_CSS }}</style>
+    {% else %}
+      <link href="{% static 'css/head.css' %}?_={{ request.extra.CACHE_BUSTER }}" rel="stylesheet"/>
+      <link href="{% static 'css/main.css' %}?_={{ request.extra.CACHE_BUSTER }}" rel="stylesheet"/>
+    {% endif %}
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="" value=""/>
+    <script>
+window.CAFFEINE_TRACKER = {
+  'config': {
+    'cache_buster': '{{ request.extra.CACHE_BUSTER }}', // Passing the cache buster from the server to the client.
+    'ctm': false, // Have we cut the mustard?
+    'static_path': '{% static '' %}', // Passing the path to static content from the server to the client.
+    }
+};
+if ('querySelector' in document && 'addEventListener' in window  && ("classList" in document.createElement("_")) && Object.prototype.toString.call(window.operamini) !== "[object OperaMini]") {
+  // Remember that we have cut the mustard to save checking again in the future.
+  window.CAFFEINE_TRACKER.config.ctm = true;
+  // CSS hook to allow styling for an initial state when JS is enabled: http://decadecity.net/blog/2013/07/30/coping-without-javascript#css
+  document.querySelector('html').classList.add('js');
+}
+    </script>
+  </head>
+  <body>
+    {% block body %}{% endblock %}
+  </body>
+</html>
