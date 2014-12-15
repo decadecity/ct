@@ -58,7 +58,7 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'caffeine_tracker.urls'
 
-WSGI_APPLICATION = 'caffeine_tracker.wsgi.application'
+WSGI_APPLICATION = 'wsgi.application'
 
 
 # Database

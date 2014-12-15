@@ -1,6 +1,14 @@
 {% extends 'base.html' %}
 {% load static from staticfiles %}
 
+{% block styles %}
+.tt-dropdown-menu {
+  background: white;
+  border: 1px solid black;
+  padding: 1em;
+}
+{% endblock %}
+
 {% block body %}
 {% if messages %}
 <ul class="messages">

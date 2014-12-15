@@ -11,6 +11,7 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^item/new', 'caffeine_tracker.apps.record.views.new_item'),
+    url(r'^accounts/login/$', 'django.contrib.auth.views.login'),
 )
 
 # Serializers define the API representation.
