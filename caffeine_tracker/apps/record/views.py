@@ -1,3 +1,5 @@
+import simplejson
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
@@ -8,6 +10,14 @@ from .forms import RecordForm
 
 @login_required
 def new_item(request):
+
+    items = []
+    for item in Item.objects.all():
+        items.append({
+            'description': item.description,
+            'caffeine': item.caffeine,
+        })
+    items = simplejson.dumps(items)
 
     if request.method == 'POST':
         form = RecordForm(request.POST)
@@ -23,7 +33,8 @@ def new_item(request):
         form = RecordForm()
 
     context = {
-        'form': form
+        'form': form,
+        'items': items,
     }
 
     return render(request, 'record/record.html', context)
