@@ -98,13 +98,14 @@
           <p><button type="button" data-ct-ui-show-target="item">{% if recent %}Other{% else %}New item{% endif %}</button></p>
         </div>
       </div>
+
       <div data-ct-ui-show-item data-ct-data-new-item class="ui--removed">
         <p>Enter new item.</p>
         <p><label>Name<input type="text" id="new_item"/></label></p>
         <p data-ct-ui-new-item-mode="absolute"><label>Caffeine content (mg)<input type="number" id="absolute" data-ct-data-new-item-input/></label></p>
-        <div data-ct-ui-new-item-mode="item">
+        <div data-ct-ui-new-item-mode="concentration">
           <fieldset><ledgend>Caffeine concentration</ledgend>
-            <label>mg<input type="number"/></label>
+            <label>mg<input type="number" data-ct-data-new-item-input/></label>
             per
             <label>ml<input type="number" data-ct-data-new-item-input/></label>
           </fieldset>
@@ -116,8 +117,9 @@
           </fieldset>
         </div>
         <p data-ct-ui-new-item-mode="espresso"><label>Number of shots of espresso<input type="number" data-ct-data-new-item-input/></p>
-        <p><button type="button">Save</button></p>
+        <p><button type="button" data-ct-ui-data-new-item-save>Save</button></p>
       </div>
+
       <div data-ct-ui-stage="3" class="ui--removed" data-ct-ui-result="true">
         <p data-ct-ui-result-text>Item recorded.</p>
         <input type="reset" data-ct-ui-restart value="Record another"/>
@@ -136,6 +138,7 @@
 <script src="{% static 'js/typeahead.bundle.js' %}"></script>
 <script>
 (function() {
+  var ESPRESSO = 80; //mg
 
   $(document).ready(function() {
     $('#advanced-form-target').html($('#advanced-form').html());
@@ -212,6 +215,47 @@
     how_much: undefined
   };
 
+  var zeroFill = function(number, decimals, pad_character) {
+    decimals = decimals || 2;
+    pad_character = pad_character || '0';
+    var pad = new Array(1 + decimals).join(pad_character);
+    return (pad + number).slice(-pad.length);
+  };
+
+  var stage = 1;
+  var advanceStage = function() {
+    stage += 1;
+    var current_stage = $('[data-ct-ui-stage=' + stage + ']');
+    $('[data-ct-ui-stage]').addClass('ui--removed');
+    $('[data-ct-ui-abort]').removeClass('ui--removed');
+    current_stage.removeClass('ui--removed');
+    window.data = data;
+    if (current_stage.data('ct-ui-result')) {
+      // This is the result stage
+      setTimeout(showResult, 0); //TODO fix hack.
+    }
+  };
+
+  var showResult = function() {
+    var date = '';
+
+    date += data.when.getFullYear();
+    date += '-' + zeroFill(data.when.getMonth() + 1);
+    date += '-' + data.when.getDate();
+    date += ' ';
+    date += zeroFill(data.when.getHours());
+    date += ':' + zeroFill(data.when.getMinutes());
+    date += ':00'; // Seconds
+
+    var recorded = 'Recorded ' + data.what + ' at ' + date;
+
+    $('#id_time').val(date);
+    $('#id_description').val(data.what);
+    $('#id_caffeine').val(data.how_much);
+
+    $('#record-form').trigger('submit');
+  };
+
   $(document).ready(function() {
     $('[data-ct-form-default]').each(function() {
       var type = $(this).data('ct-form-default');
@@ -223,47 +267,7 @@
   });
 
   $(document).ready(function() {
-    var zeroFill = function(number, decimals, pad_character) {
-      decimals = decimals || 2;
-      pad_character = pad_character || '0';
-      var pad = new Array(1 + decimals).join(pad_character);
-      return (pad + number).slice(-pad.length);
-    };
 
-    var showResult = function() {
-      var date = '';
-
-      date += data.when.getFullYear();
-      date += '-' + zeroFill(data.when.getMonth() + 1);
-      date += '-' + data.when.getDate();
-      date += ' ';
-      date += zeroFill(data.when.getHours());
-      date += ':' + zeroFill(data.when.getMinutes());
-      date += ':00'; // Seconds
-
-      var recorded = 'Recorded ' + data.what + ' at ' + date;
-
-      $('#id_time').val(date);
-      $('#id_description').val(data.what);
-      $('#id_caffeine').val(data.how_much);
-
-      $('#record-form').trigger('submit');
-    };
-
-    var advanceStage = function() {
-      stage += 1;
-      var current_stage = $('[data-ct-ui-stage=' + stage + ']');
-      $('[data-ct-ui-stage]').addClass('ui--removed');
-      $('[data-ct-ui-abort]').removeClass('ui--removed');
-      current_stage.removeClass('ui--removed');
-      window.data = data;
-      if (current_stage.data('ct-ui-result')) {
-        // This is the result stage
-        setTimeout(showResult, 0); //TODO fix hack.
-      }
-    };
-
-    var stage = 1;
     if (window.location.hash) {
       var new_stage = parseInt(window.location.hash.slice(1), 10);
       if (!isNaN(new_stage)) {
@@ -317,12 +321,10 @@
     $('[data-ct-data-item]').on('click change', function() {
       var type = $(this).data('ct-data-item');
       var item;
-      console.log(type);
       if (type === 'this') {
         item = $(this).val().split('::');
         data.what = item[0];
         data.how_much = parseFloat(item[1]);
-        console.log(item);
       }
     });
 
@@ -336,6 +338,7 @@
           $(this).val('');
           $(this).removeClass('disabled');
           $(this).find('input').prop('disabled', false);
+          $(this).data('ct-ui-data-new-item-active', false);
         });
       }
 
@@ -348,12 +351,58 @@
       modes.each(function() {
         if ($(this).data('ct-ui-new-item-mode') === mode.data('ct-ui-new-item-mode')) {
           $(this).removeClass('disabled');
-          //$(this).find('input').prop('disabled', false);
+          $(this).data('ct-ui-data-new-item-active', true);
+          $(this).find('input').prop('disabled', false);
         } else {
           $(this).addClass('disabled');
-          //$(this).find('input').prop('disabled', true);
+          $(this).data('ct-ui-data-new-item-active', false);
+          $(this).find('input').prop('disabled', true);
         }
       });
+    });
+
+    function getInt(number) {
+      number = parseInt(number, 10);
+      if (isNaN(number)) {
+        number = 0;
+      }
+      return number;
+    }
+
+    $('[data-ct-ui-data-new-item-save]').on('click', function(e) {
+      data.what = $('#new_item').val();
+      var modes = $('[data-ct-ui-new-item-mode]');
+      modes.each(function() {
+        if ($(this).data('ct-ui-data-new-item-active')) {
+          var amount = 0;
+          var mode = $(this).data('ct-ui-new-item-mode');
+          var inputs = $(this).find('[data-ct-data-new-item-input]');
+          if (mode === 'absolute') {
+            amount = getInt(inputs[0].value);
+          }
+          if (mode === 'espresso') {
+            amount = getInt(inputs[0].value) * ESPRESSO;
+          }
+          if (mode === 'concentration') {
+            var mg = getInt(inputs[0].value);
+            var ml = getInt(inputs[1].value);
+            var quantity = getInt(inputs[2].value);
+            switch ($(this).find('[name=measure]:checked').val()) {
+              case 'ml':
+                break;
+              case 'cl':
+                quantity = quantity * 10;
+                break
+              case 'l':
+                quantity = quantity * 1000;
+                break
+            }
+            amount = mg / ml * quantity;
+          }
+          data.how_much = amount;
+        }
+      });
+      advanceStage();
     });
 
     $('[data-ct-data-date]').on('click change', function() {
@@ -363,14 +412,12 @@
         data.when = new Date();
       } else if (type === 'time') {
         time = $(this).val().split(':');
-        console.log(time);
         data.when.setHours(time[0], time[1], 00);
       } else if (type === 'today') {
         time = new Date();
         data.when.setFullYear(time.getFullYear(), time.getMonth(), time.getDate());
       } else if (type === 'date') {
         time = $(this).val().split('-');
-        console.log(time);
         data.when.setFullYear(time[0], parseInt(time[1], 10) - 1, time[2]);
       }
     });
