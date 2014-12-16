@@ -13,7 +13,7 @@ class Record(models.Model):
     #User.record_set.all()
 
     def __str__(self):
-        return '%s (%s)' % (self.description, self.caffeine)
+        return '%s [%s]' % (self.description, self.caffeine)
 
     class Meta:
         ordering = ['-time']
@@ -26,7 +26,7 @@ class Item(models.Model):
     created_by = models.ForeignKey(User, related_name='items')
 
     def __str__(self):
-        return '%s (%s)' % (self.description, self.caffeine)
+        return '%s [%s]' % (self.description, self.caffeine)
 
     class Meta:
         ordering = ['-added']
@@ -38,7 +38,7 @@ class UsersRecentItem(models.Model):
     time = models.DateTimeField(default=datetime.now)
 
     def __str__(self):
-        return '%s (%s)' % (self.item.description, self.user.first_name)
+        return '%s [%s]' % (self.item.description, self.user.first_name)
 
     class Meta:
         ordering = ['-time']
