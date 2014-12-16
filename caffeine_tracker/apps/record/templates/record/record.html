@@ -7,11 +7,29 @@
   border: 1px solid black;
   padding: 1em;
 }
+
+.js #record-form {
+  display: none;
+}
+
+.ui--removed {
+  display: none;
+}
+.ui--hidden {
+  position: absolute;
+  left: -999em;
+  top: -999em;
+}
+
+.disabled {
+  opacity: 0.5;
+}
+
 {% endblock %}
 
 {% block body %}
 {% if messages %}
-<ul class="messages">
+<ul class="messages" id="messages">
     {% for message in messages %}
     <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
     {% endfor %}
@@ -23,62 +41,340 @@
     {{ form.as_p }}
     <input type="submit" value="Save" />
 </form>
+
+<div id="advanced-form-target"></div>
+
+<script type="html/template" id="advanced-form">
+    <form>
+      <div data-ct-ui-stage="1">
+        <h2>When?</h2>
+        <div data-ct-ui-hide-then>
+          <p><button type="button" data-ct-ui-stage-change="click" data-ct-data-date="now">Now</button></p>
+          <p><button type="button" data-ct-ui-show-target="then">Then</button></p>
+        </div>
+        <div data-ct-ui-show-then class="ui--removed">
+          <p>
+            <label><span class="ui--hidden">Time of day</span>
+              <select data-ct-data-date="time">
+                <option>--Select time of day--</option>
+                <option value="07:00">Breakfast</option>
+                <option value="10:00">Morning</option>
+                <option value="13:00">Lunch</option>
+                <option value="16:00">Afternoon</option>
+                <option value="19:00">Dinner</option>
+                <option value="21:00">Evening</option>
+              </select>
+            </label>
+          </p>
+          <p data-ct-ui-checked-hide-when>
+            <label>Today <input type="radio" data-ct-ui-stage-change="checked"  data-ct-data-date="today"/></label>
+            <label>Another day <input type="radio" data-ct-ui-show-checked="when"/></label>
+          </p>
+          <div data-ct-ui-checked-show-when class="ui--removed">
+            <p>
+              <label>Date
+                <input type="date" placeholder="yyyy-mm-dd" data-ct-ui-stage-change="complete" data-ct-form-default="today" data-ct-data-date="date"/>
+              </label>
+              <button type="button">OK</button>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div data-ct-ui-stage="2" class="ui--removed">
+        <h2>What?</h2>
+        <div data-ct-ui-hide-item>
+          {% if recent %}
+          <p>
+            <label><span class="ui--hidden">Recent</span>
+              <select data-ct-ui-stage-change="change" data-ct-data-item="this">
+                <option>--Select recent--</option>
+                {% for r in recent %}
+                  <option value="{{ r.item.description }}::{{ r.item.caffeine }}">{{ r.item.description }}</option>
+                {% endfor %}
+              </select>
+            </label>
+          </p>
+          {% endif %}
+          <p><button type="button" data-ct-ui-show-target="item">{% if recent %}Other{% else %}New item{% endif %}</button></p>
+        </div>
+      </div>
+      <div data-ct-ui-show-item data-ct-data-new-item class="ui--removed">
+        <p>Enter new item.</p>
+        <p><label>Name<input type="text" id="new_item"/></label></p>
+        <p data-ct-ui-new-item-mode="absolute"><label>Caffeine content (mg)<input type="number" id="absolute" data-ct-data-new-item-input/></label></p>
+        <div data-ct-ui-new-item-mode="item">
+          <fieldset><ledgend>Caffeine concentration</ledgend>
+            <label>mg<input type="number"/></label>
+            per
+            <label>ml<input type="number" data-ct-data-new-item-input/></label>
+          </fieldset>
+          <label>Quantity <input type="number" data-ct-data-new-item-input/></label>
+          <fieldset><legend>Measure</legend>
+            <label>ml<input type="radio" name="measure" value="ml" data-ct-data-new-item-input/></label>
+            <label>cl<input type="radio" name="measure" value="cl" data-ct-data-new-item-input/></label>
+            <label>l<input type="radio" name="measure" value="l" data-ct-data-new-item-input/></label>
+          </fieldset>
+        </div>
+        <p data-ct-ui-new-item-mode="espresso"><label>Number of shots of espresso<input type="number" data-ct-data-new-item-input/></p>
+        <p><button type="button">Save</button></p>
+      </div>
+      <div data-ct-ui-stage="3" class="ui--removed" data-ct-ui-result="true">
+        <p data-ct-ui-result-text>Item recorded.</p>
+        <input type="reset" data-ct-ui-restart value="Record another"/>
+      </div>
+      <div data-ct-ui-abort>
+        <hr/>
+        <p><input type="reset" data-ct-ui-restart value="Abort"/></p>
+      </div>
+    </form>
+</script>
+
 {% endblock %}
 
 
 {% block extrajs %}
 <script src="{% static 'js/typeahead.bundle.js' %}"></script>
 <script>
-var substringMatcher = function(strs) {
-  return function findMatches(q, cb) {
-    var matches, substrRegex;
+(function() {
 
-    // an array that will be populated with substring matches
-    matches = [];
+  $(document).ready(function() {
+    $('#advanced-form-target').html($('#advanced-form').html());
+  });
 
-    // regex used to determine if a string contains the substring `q`
-    substrRegex = new RegExp(q, 'i');
+  $(document).ready(function() {
+    setTimeout(function() {
+      $('#messages').fadeOut();
+    }, 2000);
+  });
 
-    // iterate through the pool of strings and for any string that
-    // contains the substring `q`, add it to the `matches` array
-    $.each(strs, function(i, str) {
-      if (substrRegex.test(str)) {
-        // the typeahead jQuery plugin expects suggestions to a
-        // JavaScript object, refer to typeahead docs for more info
-        matches.push({ value: str });
+  $(document).ready(function() {
+    var substringMatcher = function(strs) {
+      return function findMatches(q, cb) {
+        var matches, substrRegex;
+
+        // an array that will be populated with substring matches
+        matches = [];
+
+        // regex used to determine if a string contains the substring `q`
+        substrRegex = new RegExp(q, 'i');
+
+        // iterate through the pool of strings and for any string that
+        // contains the substring `q`, add it to the `matches` array
+        $.each(strs, function(i, str) {
+          if (substrRegex.test(str)) {
+            // the typeahead jQuery plugin expects suggestions to a
+            // JavaScript object, refer to typeahead docs for more info
+            matches.push({ value: str });
+          }
+        });
+
+        cb(matches);
+      };
+    };
+
+    var items = {{ items|safe }};
+
+    var descriptions = [];
+    var caffeine_contents = {};
+
+    items.forEach(function(item) {
+      descriptions.push(item.description);
+      caffeine_contents[item.description] = item.caffeine;
+    });
+
+    $('#new_items').typeahead({ //TODO - b0rked.
+      hint: true,
+      highlight: true,
+      minLength: 1
+    },
+    {
+      name: 'description',
+      displayKey: 'value',
+      source: substringMatcher(descriptions)
+    }).on('typeahead:selected', function(e) {
+      var description = e.target.value;
+      var caffeine = $('#absolute');
+      if (caffeine_contents.hasOwnProperty(description)) {
+        caffeine.val(caffeine_contents[description]);
+      } else {
+        caffeine.val('');
+      }
+      //caffeine.trigger('change');
+    });
+
+
+  });
+
+
+  var data = {
+    when: new Date(),
+    what: undefined,
+    how_much: undefined
+  };
+
+  $(document).ready(function() {
+    $('[data-ct-form-default]').each(function() {
+      var type = $(this).data('ct-form-default');
+      if (type === 'today') {
+        var today = new Date();
+        this.value = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+      }
+    });
+  });
+
+  $(document).ready(function() {
+    var zeroFill = function(number, decimals, pad_character) {
+      decimals = decimals || 2;
+      pad_character = pad_character || '0';
+      var pad = new Array(1 + decimals).join(pad_character);
+      return (pad + number).slice(-pad.length);
+    };
+
+    var showResult = function() {
+      var date = '';
+
+      date += data.when.getFullYear();
+      date += '-' + zeroFill(data.when.getMonth() + 1);
+      date += '-' + data.when.getDate();
+      date += ' ';
+      date += zeroFill(data.when.getHours());
+      date += ':' + zeroFill(data.when.getMinutes());
+      date += ':00'; // Seconds
+
+      var recorded = 'Recorded ' + data.what + ' at ' + date;
+
+      $('#id_time').val(date);
+      $('#id_description').val(data.what);
+      $('#id_caffeine').val(data.how_much);
+
+      $('#record-form').trigger('submit');
+    };
+
+    var advanceStage = function() {
+      stage += 1;
+      var current_stage = $('[data-ct-ui-stage=' + stage + ']');
+      $('[data-ct-ui-stage]').addClass('ui--removed');
+      $('[data-ct-ui-abort]').removeClass('ui--removed');
+      current_stage.removeClass('ui--removed');
+      window.data = data;
+      if (current_stage.data('ct-ui-result')) {
+        // This is the result stage
+        setTimeout(showResult, 0); //TODO fix hack.
+      }
+    };
+
+    var stage = 1;
+    if (window.location.hash) {
+      var new_stage = parseInt(window.location.hash.slice(1), 10);
+      if (!isNaN(new_stage)) {
+        stage = new_stage - 1;
+        advanceStage();
+      }
+    }
+
+    $('[data-ct-ui-show-target]').on('click', function() {
+      var target = $(this).data('ct-ui-show-target');
+      $('[data-ct-ui-show-' + target + ']').removeClass('ui--removed');
+      $('[data-ct-ui-hide-' + target + ']').addClass('ui--removed');
+    });
+
+    $('[data-ct-ui-show-checked]').on('change', function() {
+      var target = $(this).data('ct-ui-show-checked');
+      if (this.value === 'on') {
+        $('[data-ct-ui-checked-show-' + target + ']').removeClass('ui--removed');
+        $('[data-ct-ui-checked-hide-' + target + ']').addClass('ui--removed');
+      } else {
+        $('[data-ct-ui-checked-show-' + target + ']').addClass('ui--removed');
+        $('[data-ct-ui-checked-hide-' + target + ']').removeClass('ui--removed');
       }
     });
 
-    cb(matches);
-  };
-};
+    $('[data-ct-ui-stage-change=click]').on('click', function() {
+      advanceStage();
+    });
+    $('[data-ct-ui-stage-change=change]').on('change', function() {
+      advanceStage();
+    });
+    $('[data-ct-ui-stage-change=checked]').on('change', function() {
+      if (this.value === 'on') {
+        advanceStage()
+      }
+    });
+    $('[data-ct-ui-stage-change=complete]').on('blur', function() {
+      if (this.value && this.value !== 'off') {
+        advanceStage()
+      }
+    });
 
-var items = {{ items|safe }};
+    $('[data-ct-ui-restart]').on('click', function() {
+      document.location.reload(false);
+    });
 
-var descriptions = [];
-var caffeine_contents = {};
+  });
 
-items.forEach(function(item) {
-  descriptions.push(item.description);
-  caffeine_contents[item.description] = item.caffeine;
-});
+  $(document).ready(function () {
 
-$('#id_description').typeahead({
-  hint: true,
-  highlight: true,
-  minLength: 1
-},
-{
-  name: 'description',
-  displayKey: 'value',
-  source: substringMatcher(descriptions)
-}).on('keyup change blur typeahead:selected', function(e) {
-  var description = e.target.value;
-  if (caffeine_contents.hasOwnProperty(description)) {
-    $('#id_caffeine').val(caffeine_contents[description]);
-  } else {
-    $('#id_caffeine').val('');
-  }
-});
+    $('[data-ct-data-item]').on('click change', function() {
+      var type = $(this).data('ct-data-item');
+      var item;
+      console.log(type);
+      if (type === 'this') {
+        item = $(this).val().split('::');
+        data.what = item[0];
+        data.how_much = parseFloat(item[1]);
+        console.log(item);
+      }
+    });
+
+
+    $('[data-ct-data-new-item-input]').on('click change keyup', function(e) {
+
+      var modes = $('[data-ct-ui-new-item-mode]');
+
+      function resetForm() {
+        modes.each(function() {
+          $(this).val('');
+          $(this).removeClass('disabled');
+          $(this).find('input').prop('disabled', false);
+        });
+      }
+
+      if (!$(this).val()) {
+        resetForm();
+        return;
+      }
+
+      var mode = $(e.target).parents('[data-ct-ui-new-item-mode]');
+      modes.each(function() {
+        if ($(this).data('ct-ui-new-item-mode') === mode.data('ct-ui-new-item-mode')) {
+          $(this).removeClass('disabled');
+          //$(this).find('input').prop('disabled', false);
+        } else {
+          $(this).addClass('disabled');
+          //$(this).find('input').prop('disabled', true);
+        }
+      });
+    });
+
+    $('[data-ct-data-date]').on('click change', function() {
+      var type = $(this).data('ct-data-date');
+      var time;
+      if (type === 'now') {
+        data.when = new Date();
+      } else if (type === 'time') {
+        time = $(this).val().split(':');
+        console.log(time);
+        data.when.setHours(time[0], time[1], 00);
+      } else if (type === 'today') {
+        time = new Date();
+        data.when.setFullYear(time.getFullYear(), time.getMonth(), time.getDate());
+      } else if (type === 'date') {
+        time = $(this).val().split('-');
+        console.log(time);
+        data.when.setFullYear(time[0], parseInt(time[1], 10) - 1, time[2]);
+      }
+    });
+  });
+}());
 </script>
 {% endblock %}

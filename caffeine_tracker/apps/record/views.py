@@ -29,15 +29,18 @@ def new_item(request):
             record = form.save(commit=False)
             record.user = request.user
             record.save()
-            messages.success(request, 'Item recorded.')
+            messages.success(request, 'Item recorded: %s at %s' % (record.description, record.time))
             return HttpResponseGetAfterPost(request.path)
 
     else:
         form = RecordForm()
 
+    recent = request.user.recent_items.all()
+
     context = {
         'form': form,
         'items': items,
+        'recent': recent,
     }
 
     return render(request, 'record/record.html', context)
