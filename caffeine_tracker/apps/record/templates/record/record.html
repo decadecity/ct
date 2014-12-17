@@ -251,7 +251,7 @@
 
     $('#id_time').val(date);
     $('#id_description').val(data.what);
-    $('#id_caffeine').val(data.how_much);
+    $('#id_caffeine').val(Math.round(data.how_much));
 
     $('#record-form').trigger('submit');
   };

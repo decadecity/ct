@@ -9,9 +9,10 @@ urlpatterns = patterns('',
     # url(r'^$', 'caffeine_tracker.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
+    url(r'^$', 'caffeine_tracker.apps.homepage.views.home', name='home'),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^item/new', 'caffeine_tracker.apps.record.views.new_item'),
-    url(r'^accounts/login/$', 'django.contrib.auth.views.login'),
+    url(r'^record/item', 'caffeine_tracker.apps.record.views.new_item', name='add_record'),
+    url(r'^accounts/login/$', 'django.contrib.auth.views.login', name='login'),
 )
 
 # Serializers define the API representation.
