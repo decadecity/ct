@@ -28,10 +28,16 @@
 {% endblock %}
 
 {% block body %}
-{% if messages %}
-<ul class="messages" id="messages">
+{% if messages or form.errors %}
+<ul class="messages{% if not form.errors %} messages--success{% endif %}" id="messages">
     {% for message in messages %}
     <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+    {% for field in form %}
+      {% if field.errors %}
+      <li>{{ field.label }}:
+      {{ field.errors }}
+      {% endif %}</li>
     {% endfor %}
 </ul>
 {% endif %}
@@ -146,7 +152,7 @@
 
   $(document).ready(function() {
     setTimeout(function() {
-      $('#messages').fadeOut();
+      $('.messages--success').fadeOut();
     }, 2000);
   });
 

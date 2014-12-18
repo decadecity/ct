@@ -10,7 +10,6 @@ class Record(models.Model):
     description = models.CharField(max_length=255)
     caffeine = models.PositiveIntegerField()
     user = models.ForeignKey(User, related_name='records')
-    #User.record_set.all()
 
     def __str__(self):
         return '%s [%s]' % (self.description, self.caffeine)
@@ -36,6 +35,7 @@ class UsersRecentItem(models.Model):
     user = models.ForeignKey(User, related_name='recent_items')
     item = models.ForeignKey(Item, related_name='recent_items')
     time = models.DateTimeField(default=datetime.now)
+    count = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return '%s [%s]' % (self.item.description, self.user.first_name)
@@ -62,4 +62,5 @@ def log_items(sender, **kwargs):
         item=item,
     )
     recent.time = datetime.now()
+    recent.count += 1
     recent.save()
