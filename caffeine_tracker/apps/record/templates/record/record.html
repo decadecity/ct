@@ -144,7 +144,7 @@
 <script src="{% static 'js/typeahead.bundle.js' %}"></script>
 <script>
 (function() {
-  var ESPRESSO = 80; //mg
+  var ESPRESSO = 100; //mg
 
   $(document).ready(function() {
     $('#advanced-form-target').html($('#advanced-form').html());
@@ -418,13 +418,17 @@
         data.when = new Date();
       } else if (type === 'time') {
         time = $(this).val().split(':');
-        data.when.setHours(time[0], time[1], 00);
+        if (time.length === 2) {
+          data.when.setHours(time[0], time[1], 00);
+        }
       } else if (type === 'today') {
         time = new Date();
         data.when.setFullYear(time.getFullYear(), time.getMonth(), time.getDate());
       } else if (type === 'date') {
         time = $(this).val().split('-');
-        data.when.setFullYear(time[0], parseInt(time[1], 10) - 1, time[2]);
+        if (time.length === 3) {
+          data.when.setFullYear(time[0], parseInt(time[1], 10) - 1, time[2]);
+        }
       }
     });
   });
