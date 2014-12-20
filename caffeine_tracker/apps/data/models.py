@@ -61,6 +61,6 @@ def log_items(sender, **kwargs):
         user=record.user,
         item=item,
     )
-    recent.time = datetime.now()
+    recent.time = record.time
     recent.count += 1
     recent.save()
