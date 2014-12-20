@@ -1,19 +1,20 @@
-define(function (require) {
+/* global: exports */
+define(function (require, exports, module) {
   "use strict";
 
   var $ = require('jquery');
 
   var ESPRESSO = 100; //mg
 
-  $(document).ready(function() {
+  var setForm = function() {
     $('#advanced-form-target').html($('#advanced-form').html());
-  });
+  };
 
-  $(document).ready(function() {
+  var hideMessages = function() {
     setTimeout(function() {
       $('.messages--success').fadeOut();
     }, 2000);
-  });
+  };
 
   var data = {
     when: new Date(),
@@ -62,7 +63,7 @@ define(function (require) {
     $('#record-form').trigger('submit');
   };
 
-  $(document).ready(function() {
+  var setDate = function() {
     $('[data-ct-form-default]').each(function() {
       var type = $(this).data('ct-form-default');
       if (type === 'today') {
@@ -70,9 +71,9 @@ define(function (require) {
         this.value = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
       }
     });
-  });
+  };
 
-  $(document).ready(function() {
+  var setStage = function() {
 
     if (window.location.hash) {
       var new_stage = parseInt(window.location.hash.slice(1), 10);
@@ -120,10 +121,9 @@ define(function (require) {
       document.location.reload(false);
     });
 
-  });
+  };
 
-  $(document).ready(function () {
-
+  var main = function () {
     $('[data-ct-data-item]').on('click change', function() {
       var type = $(this).data('ct-data-item');
       var item;
@@ -232,5 +232,13 @@ define(function (require) {
         }
       }
     });
-  });
+  };
+
+  module.exports.ready = function () {
+    setForm();
+    hideMessages();
+    setStage();
+    setDate();
+    main();
+  };
 });

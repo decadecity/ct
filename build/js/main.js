@@ -4,13 +4,9 @@ define(function (require) {
   // Bring in all our dependencies.
   var record = require('record/main');
 
-  var _ = typeof record;
-  if (_) {
-    _ = undefined;
-  }
-
   function readyRunner() {
     // Run the ready() handlers for each module.
+    record.ready();
   }
   /**
    * Run all modules that have handlers for DOM ready.

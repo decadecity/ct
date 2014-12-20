@@ -4,7 +4,10 @@ head_css = ''
 
 def get_head_css():
     global head_css
-    base_path = settings.STATIC_ROOT
+    if settings.DEBUG:
+        base_path = settings.STATICFILES_DIRS[0]
+    else:
+        base_path = settings.STATIC_ROOT
     if not head_css or settings.DEBUG:
         try:
             filename = '%s/css/head.min.css' % (base_path)
