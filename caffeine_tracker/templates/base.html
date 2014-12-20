@@ -13,11 +13,10 @@
       <style>{{ request.extra.HEAD_CSS }}</style>
     {% else %}
       <link href="{% static 'css/head.css' %}?_={{ request.extra.CACHE_BUSTER }}" rel="stylesheet"/>
-      <link href="{% static 'css/main.css' %}?_={{ request.extra.CACHE_BUSTER }}" rel="stylesheet"/>
     {% endif %}
     <style>{% block styles %}{% endblock %}</style>
-    <title>{% block title %}{% endblock %}</title>
-    <meta name="" value=""/>
+    <title>{% block title %}Caffeine Tracker{% endblock %}</title>
+    <!--<meta name="" content=""/>-->
     <script>
 window.CAFFEINE_TRACKER = {
   'config': {
@@ -36,7 +35,7 @@ if ('querySelector' in document && 'addEventListener' in window  && ("classList"
   </head>
   <body>
     {% block body %}{% endblock %}
-    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
     {% block extrajs %}{% endblock %}
   </body>
 </html>
