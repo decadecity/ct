@@ -3,30 +3,15 @@ define(function (require, exports, module) {
   "use strict";
 
   var $ = require('jquery');
+  var view = require('./view');
+  var utils = require('./utils');
 
   var ESPRESSO = 100; //mg
-
-  var setForm = function() {
-    $('#advanced-form-target').html($('#advanced-form').html());
-  };
-
-  var hideMessages = function() {
-    setTimeout(function() {
-      $('.messages--success').fadeOut();
-    }, 2000);
-  };
 
   var data = {
     when: new Date(),
     what: undefined,
     how_much: undefined
-  };
-
-  var zeroFill = function(number, decimals, pad_character) {
-    decimals = decimals || 2;
-    pad_character = pad_character || '0';
-    var pad = new Array(1 + decimals).join(pad_character);
-    return (pad + number).slice(-pad.length);
   };
 
   var stage = 1;
@@ -47,11 +32,11 @@ define(function (require, exports, module) {
     var date = '';
 
     date += data.when.getFullYear();
-    date += '-' + zeroFill(data.when.getMonth() + 1);
+    date += '-' + utils.zeroFill(data.when.getMonth() + 1);
     date += '-' + data.when.getDate();
     date += ' ';
-    date += zeroFill(data.when.getHours());
-    date += ':' + zeroFill(data.when.getMinutes());
+    date += utils.zeroFill(data.when.getHours());
+    date += ':' + utils.zeroFill(data.when.getMinutes());
     date += ':00'; // Seconds
 
     //var recorded = 'Recorded ' + data.what + ' at ' + date;
@@ -167,14 +152,6 @@ define(function (require, exports, module) {
       });
     });
 
-    function getInt(number) {
-      number = parseInt(number, 10);
-      if (isNaN(number)) {
-        number = 0;
-      }
-      return number;
-    }
-
     $('[data-ct-ui-data-new-item-save]').on('click', function(e) {
       e.preventDefault();
       data.what = $('#new_item').val();
@@ -185,15 +162,15 @@ define(function (require, exports, module) {
           var mode = $(this).data('ct-ui-new-item-mode');
           var inputs = $(this).find('[data-ct-data-new-item-input]');
           if (mode === 'absolute') {
-            amount = getInt(inputs[0].value);
+            amount = utils.getInt(inputs[0].value);
           }
           if (mode === 'espresso') {
-            amount = getInt(inputs[0].value) * ESPRESSO;
+            amount = utils.getInt(inputs[0].value) * ESPRESSO;
           }
           if (mode === 'concentration') {
-            var mg = getInt(inputs[0].value);
-            var ml = getInt(inputs[1].value);
-            var quantity = getInt(inputs[2].value);
+            var mg = utils.getInt(inputs[0].value);
+            var ml = utils.getInt(inputs[1].value);
+            var quantity = utils.getInt(inputs[2].value);
             switch ($(this).find('[name=measure]:checked').val()) {
               case 'ml':
                 break;
@@ -235,8 +212,7 @@ define(function (require, exports, module) {
   };
 
   module.exports.ready = function () {
-    setForm();
-    hideMessages();
+    view.ready();
     setStage();
     setDate();
     main();

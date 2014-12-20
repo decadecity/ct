@@ -60,7 +60,7 @@ module.exports = function(grunt) {
      */
     jshint: {
       options: {
-        jshintrc: 'build/config/jshintrc.json'
+        jshintrc: 'build/etc/jshintrc.json'
       },
       // Check this file.
       gruntfile: {
@@ -86,7 +86,7 @@ module.exports = function(grunt) {
       options: {
         coverage: {
           disposeCollector: true,
-          src: ['build/**/*.js'],
+          src: ['build/js/**/*.js'],
           instrumentedFiles: 'tmp/',
           htmlReport: 'report/coverage',
           linesThresholdPct: 100,
@@ -116,7 +116,7 @@ module.exports = function(grunt) {
           paths: {
             jquery: '../lib/jquery/jquery',
             almond: '../lib/almond/almond',
-            config: '../config/config.js'
+            config: '../etc/config.js'
           },
           // Start the build with almond.
           name: 'almond',
@@ -162,7 +162,7 @@ module.exports = function(grunt) {
       ],
       options: {
         colorizeOutput: true,
-        config: 'build/config/scss-lint.yml'
+        config: 'build/etc/scss-lint.yml'
       }
     },
 
@@ -202,7 +202,7 @@ module.exports = function(grunt) {
       },
       // Unit tests.
       tests: {
-        files: ['build/test/js/**/*_test.js'],
+        files: ['build/test/**/*_test.js'],
         tasks: ['jshint:tests', 'qunit']
       },
       // Sass source code.
@@ -216,15 +216,18 @@ module.exports = function(grunt) {
 
   // For some things we want to limit the scope of the action when a file changes.
   grunt.event.on('watch', function(action, filepath) {
+    var test_file;
     if (filepath.lastIndexOf('build/js', 0) === 0) {
       // If it's a source file then only hint and test that file.
       grunt.config('jshint.source.src', filepath);
-      grunt.config('qunit.files', filepath.replace(/build\/js\/(.*)\.js$/, 'build/test/js/$1.js_test.html'));
+      test_file = filepath.replace(/build\/js\/(.*)\.js$/, 'build/test/$1.js_test.html');
+      grunt.config('qunit.files', test_file);
     }
     if (filepath.lastIndexOf('build/test/', 0) === 0) {
       // If it's a test then only hint that file and run its tests.
       grunt.config('jshint.tests.src', filepath);
-      grunt.config('qunit.files', filepath.replace(/build\/test\/js\/(.*)\.js$/, 'build/test/js/$1.html'));
+      test_file = filepath.replace(/build\/test\/(.*)\.js$/, 'build/test/$1.html');
+      grunt.config('qunit.files', test_file);
     }
     if (filepath.lastIndexOf('build/sass', 0) === 0 && filepath.lastIndexOf('build/sass/lib', 0) !== 0) {
       // Only lint Sass files that have changed.
@@ -240,11 +243,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-qunit-istanbul');
   grunt.loadNpmTasks('grunt-scss-lint');
 
 

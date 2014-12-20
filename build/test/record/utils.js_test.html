@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Caffeine Tracker record/utils.js Test Suite</title>
+  <!-- Load local jQuery. -->
+  <!-- jQuery is used as a short cut for some tests, not used by library. -->
+  <script src="../../lib/jquery/jquery.js"></script>
+  <!-- Load local QUnit (grunt requires v1.0.0 or newer). -->
+  <link rel="stylesheet" href="../../lib/qunit/qunit.css" media="screen">
+  <script src="../../lib/qunit/qunit.js"></script>
+
+  <!-- Load in require -->
+  <script src="../../lib/require/require.js"></script>
+  <!-- Removing access to jQuery and $. But it'll still be available as _$ -->
+  <script>window._$ = jQuery.noConflict(true);</script>
+
+</head>
+<body>
+  <h1 id="qunit-header">Caffeine Tracker record/utils.js Test Suite</h1>
+  <h2 id="qunit-banner"></h2>
+  <div id="qunit-testrunner-toolbar"></div>
+  <h2 id="qunit-userAgent"></h2>
+  <ol id="qunit-tests"></ol>
+  <div id="qunit-fixture">
+  </div>
+
+  <!-- Load local lib and tests. -->
+  <script>
+require.config({
+  baseUrl: '../../js/',
+  paths: {
+      // the left side is the module ID,
+      // the right side is the path to
+      // the jQuery file, relative to baseUrl.
+      // Also, the path should NOT include
+      // the '.js' file extension.
+      config: '../etc/config'
+  }
+});
+
+QUnit.config.autostart = false;
+require(['../test/record/utils.js_test'],
+  function (testModule) {
+    QUnit.start();
+    testModule.runTests();
+  }
+);
+  </script>
+
+</body>
+</html>
