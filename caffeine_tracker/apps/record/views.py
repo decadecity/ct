@@ -13,14 +13,6 @@ from .forms import RecordForm
 @login_required
 def new_item(request):
 
-    items = []
-    for item in Item.objects.all():
-        items.append({
-            'description': item.description,
-            'caffeine': item.caffeine,
-        })
-    items = simplejson.dumps(items)
-
     if request.method == 'POST':
         form = RecordForm(request.POST)
         if not form.is_valid():
@@ -39,7 +31,7 @@ def new_item(request):
 
     context = {
         'form': form,
-        'items': items,
+        'items': Item.objects.all(),
         'recent': recent,
     }
 

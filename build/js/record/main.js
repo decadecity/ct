@@ -12,19 +12,21 @@ define(function (require, exports, module) {
   var data = model.record();
 
   var stage = 1;
+
+  /* instanbul ignore next */
   var advanceStage = function() {
     stage += 1;
     var current_stage = $('[data-ct-ui-stage=' + stage + ']');
     $('[data-ct-ui-stage]').addClass('ui--removed');
     $('[data-ct-ui-abort]').removeClass('ui--removed');
     current_stage.removeClass('ui--removed');
-    window.data = data;
     if (current_stage.data('ct-ui-result')) {
       // This is the result stage
       setTimeout(showResult, 0); //TODO fix hack.
     }
   };
 
+  /* instanbul ignore next */
   var showResult = function() {
 
     $('#id_time').val(data.timeString());
@@ -34,6 +36,7 @@ define(function (require, exports, module) {
     $('#record-form').trigger('submit');
   };
 
+  /* instanbul ignore next */
   var setStage = function() {
 
     if (window.location.hash) {
@@ -84,8 +87,9 @@ define(function (require, exports, module) {
 
   };
 
+  /* instanbul ignore next */
   var main = function () {
-    $('[data-ct-data-item]').on('click change', function() {
+    $('[data-ct-data-item]').on('input', function() {
       var type = $(this).data('ct-data-item');
       var item;
       if (type === 'this') {
@@ -96,7 +100,7 @@ define(function (require, exports, module) {
     });
 
 
-    $('[data-ct-data-new-item-input]').on('click change keyup', function(e) {
+    $('[data-ct-data-new-item-input]').on('input', function(e) {
 
       var modes = $('[data-ct-ui-new-item-mode]');
 
@@ -170,9 +174,32 @@ define(function (require, exports, module) {
     });
   };
 
+  /**
+   * Sets a target when a data list item is selected.
+   */
+  var datalistValue = function() {
+    $('[data-ct-datalist-value]').on('input', function() {
+      var value = $(this).val();
+      var datalist = $('#' + $(this).attr('list'));
+      var target = $('[data-ct-value-target-' + datalist.data('ct-value-target') + ']');
+
+      var found = false;
+      datalist.find('option').each(function() {
+        if ($(this).val() === value) {
+          target.val($(this).data('ct-data-value'));
+          found = true;
+        }
+      });
+      if (!found) {
+        target.val('');
+      }
+    });
+  };
+
   module.exports.ready = function () {
     view.ready();
     setStage();
     main();
+    datalistValue();
   };
 });

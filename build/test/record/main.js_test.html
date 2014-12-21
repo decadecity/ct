@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Caffeine Tracker record/model.js Test Suite</title>
+  <!-- Load local jQuery. -->
+  <!-- jQuery is used as a short cut for some tests, not used by library. -->
+  <script src="../../lib/jquery/jquery.js"></script>
+  <!-- Load local QUnit (grunt requires v1.0.0 or newer). -->
+  <link rel="stylesheet" href="../../lib/qunit/qunit.css" media="screen">
+  <script src="../../lib/qunit/qunit.js"></script>
+
+  <!-- Load in require -->
+  <script src="../../lib/require/require.js"></script>
+  <!-- Removing access to jQuery and $. But it'll still be available as _$ -->
+  <script>window._$ = jQuery.noConflict(true);</script>
+
+</head>
+<body>
+  <h1 id="qunit-header">Caffeine Tracker record/model.js Test Suite</h1>
+  <h2 id="qunit-banner"></h2>
+  <div id="qunit-testrunner-toolbar"></div>
+  <h2 id="qunit-userAgent"></h2>
+  <ol id="qunit-tests"></ol>
+  <div id="qunit-fixture">
+<div id="datalist-updater">
+  <p>
+    <label>Name<input list="datalist-items" id="new_item" data-ct-datalist-value /></label>
+    <datalist id="datalist-items" data-ct-value-target="absolute">
+      <option value="test1" data-ct-data-value="100"/>
+      <option value="test2" data-ct-data-value="200"/>
+      <option value="test3" data-ct-data-value="300"/>
+    </datalist>
+  </p>
+  <p data-ct-ui-new-item-mode="absolute">
+    <label>Caffeine content (mg)
+      <input type="number" value="13" id="absolute" data-ct-data-new-item-input data-ct-value-target-absolute/>
+    </label>
+  </p>
+</div><!-- #datalist-updater -->
+  </div>
+
+  <!-- Load local lib and tests. -->
+  <script>
+require.config({
+  baseUrl: '../../js/',
+  paths: {
+      // the left side is the module ID,
+      // the right side is the path to
+      // the jQuery file, relative to baseUrl.
+      // Also, the path should NOT include
+      // the '.js' file extension.
+      config: '../etc/config',
+      jquery: '../lib/jquery/jquery'
+  }
+});
+
+QUnit.config.autostart = false;
+require(['../test/record/main.js_test'],
+  function (testModule) {
+    QUnit.start();
+    testModule.runTests();
+  }
+);
+  </script>
+
+</body>
+</html>
