@@ -5,14 +5,11 @@ define(function (require, exports, module) {
   var $ = require('jquery');
   var view = require('./view');
   var utils = require('./utils');
+  var model = require('./model');
 
   var ESPRESSO = 100; //mg
 
-  var data = {
-    when: new Date(),
-    what: undefined,
-    how_much: undefined
-  };
+  var data = model.record();
 
   var stage = 1;
   var advanceStage = function() {
@@ -29,33 +26,12 @@ define(function (require, exports, module) {
   };
 
   var showResult = function() {
-    var date = '';
 
-    date += data.when.getFullYear();
-    date += '-' + utils.zeroFill(data.when.getMonth() + 1);
-    date += '-' + data.when.getDate();
-    date += ' ';
-    date += utils.zeroFill(data.when.getHours());
-    date += ':' + utils.zeroFill(data.when.getMinutes());
-    date += ':00'; // Seconds
-
-    //var recorded = 'Recorded ' + data.what + ' at ' + date;
-
-    $('#id_time').val(date);
-    $('#id_description').val(data.what);
-    $('#id_caffeine').val(Math.round(data.how_much));
+    $('#id_time').val(data.timeString());
+    $('#id_description').val(data.description);
+    $('#id_caffeine').val(Math.round(data.caffeine));
 
     $('#record-form').trigger('submit');
-  };
-
-  var setDate = function() {
-    $('[data-ct-form-default]').each(function() {
-      var type = $(this).data('ct-form-default');
-      if (type === 'today') {
-        var today = new Date();
-        this.value = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-      }
-    });
   };
 
   var setStage = function() {
@@ -114,8 +90,8 @@ define(function (require, exports, module) {
       var item;
       if (type === 'this') {
         item = $(this).val().split('::');
-        data.what = item[0];
-        data.how_much = parseFloat(item[1]);
+        data.description = item[0];
+        data.caffeine = utils.getInt(item[1]);
       }
     });
 
@@ -154,7 +130,7 @@ define(function (require, exports, module) {
 
     $('[data-ct-ui-data-new-item-save]').on('click', function(e) {
       e.preventDefault();
-      data.what = $('#new_item').val();
+      data.description = $('#new_item').val();
       var modes = $('[data-ct-ui-new-item-mode]');
       modes.each(function() {
         if ($(this).data('ct-ui-data-new-item-active')) {
@@ -183,38 +159,20 @@ define(function (require, exports, module) {
             }
             amount = mg / ml * quantity;
           }
-          data.how_much = amount;
+          data.caffeine = amount;
         }
       });
       advanceStage();
     });
 
     $('[data-ct-data-date]').on('click change', function() {
-      var type = $(this).data('ct-data-date');
-      var time;
-      if (type === 'now') {
-        data.when = new Date();
-      } else if (type === 'time') {
-        time = $(this).val().split(':');
-        if (time.length === 2) {
-          data.when.setHours(time[0], time[1], 0);
-        }
-      } else if (type === 'today') {
-        time = new Date();
-        data.when.setFullYear(time.getFullYear(), time.getMonth(), time.getDate());
-      } else if (type === 'date') {
-        time = $(this).val().split('-');
-        if (time.length === 3) {
-          data.when.setFullYear(time[0], parseInt(time[1], 10) - 1, time[2]);
-        }
-      }
+      data.timeType($(this).val(), $(this).data('ct-data-date'));
     });
   };
 
   module.exports.ready = function () {
     view.ready();
     setStage();
-    setDate();
     main();
   };
 });
