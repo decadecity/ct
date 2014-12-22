@@ -158,11 +158,12 @@ module.exports = function(grunt) {
      */
     scsslint: {
       files: [
+        'build/sass/head.scss',
         'build/sass/**/*.scss'
       ],
       options: {
         colorizeOutput: true,
-        config: 'build/etc/scss-lint.yml'
+        config: 'build/etc/sass-lint.yml'
       }
     },
 
