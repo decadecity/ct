@@ -1,4 +1,5 @@
 /* global: exports */
+/* istanbul ignore  next */
 define(function (require, exports, module) {
   "use strict";
 

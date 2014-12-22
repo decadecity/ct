@@ -28,7 +28,7 @@ define(function(require) {
 
       module('Model - record');
 
-      var record = model.record();
+      var record = model.record;
 
       test('structure', function() {
         ok(record.hasOwnProperty('description'), 'Has a description');

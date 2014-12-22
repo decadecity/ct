@@ -22,7 +22,8 @@ define(function(require) {
   "use strict";
 
   var $ = require('jquery'),
-      main = require('record/main');
+      main = require('record/main'),
+      model = require('record/model');
 
   return {
     runTests: function() {
@@ -38,6 +39,19 @@ define(function(require) {
         strictEqual($('#absolute').val(), '200', 'Sets target correctly');
         $('#new_item').val('invalid').trigger('input');
         strictEqual($('#absolute').val(), '', 'Clears on unlisted entry');
+      });
+
+      test('selectValue', function() {
+        var record = model.record;
+        $('#recent_item').val('test1').trigger('input');
+        strictEqual(record.description, 'test1', 'Sets description correctly');
+        strictEqual(record.caffeine, 100, 'Sets caffeine correctly');
+        $('#recent_item').val('test2').trigger('input');
+        strictEqual(record.description, 'test2', 'Sets description correctly');
+        strictEqual(record.caffeine, 200, 'Sets caffeine correctly');
+        $('#recent_item').val('').trigger('input');
+        strictEqual(record.description, '', 'Clears description on unlisted entry');
+        strictEqual(record.caffeine, 0, 'Clears caffeine on unlisted entry');
       });
 
     }

@@ -68,10 +68,10 @@
           {% if recent %}
           <p>
             <label><span class="ui--hidden">Recent</span>
-              <select data-ct-ui-stage-change="change" data-ct-data-item="this">
+              <select data-ct-ui-stage-change="change" data-ct-data-item="options">
                 <option>--Select recent--</option>
                 {% for r in recent %}
-                  <option value="{{ r.item.description }}::{{ r.item.caffeine }}">{{ r.item.description }}</option>
+                  <option value="{{ r.item.description }}" data-ct-data-value="{{ r.item.caffeine }}">{{ r.item.description }}</option>
                 {% endfor %}
               </select>
             </label>

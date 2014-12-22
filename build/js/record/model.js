@@ -4,7 +4,7 @@ define(function (require, exports, module) {
 
   var utils = require('./utils');
 
-  var record = function record() {
+  var Record = function record() {
     var self = {};
 
     self.description = '';
@@ -46,5 +46,5 @@ define(function (require, exports, module) {
     return self;
   };
 
-  module.exports.record = record;
+  module.exports.record = new Record();
 });

@@ -9,11 +9,11 @@ define(function (require, exports, module) {
 
   var ESPRESSO = 100; //mg
 
-  var data = model.record();
+  var data = model.record;
 
   var stage = 1;
 
-  /* instanbul ignore next */
+  /* istanbul ignore next */
   var advanceStage = function() {
     stage += 1;
     var current_stage = $('[data-ct-ui-stage=' + stage + ']');
@@ -26,7 +26,7 @@ define(function (require, exports, module) {
     }
   };
 
-  /* instanbul ignore next */
+  /* istanbul ignore next */
   var showResult = function() {
 
     $('#id_time').val(data.timeString());
@@ -36,7 +36,7 @@ define(function (require, exports, module) {
     $('#record-form').trigger('submit');
   };
 
-  /* instanbul ignore next */
+  /* istanbul ignore next */
   var setStage = function() {
 
     if (window.location.hash) {
@@ -87,20 +87,10 @@ define(function (require, exports, module) {
 
   };
 
-  /* instanbul ignore next */
+  /* istanbul ignore next */
   var main = function () {
-    $('[data-ct-data-item]').on('input', function() {
-      var type = $(this).data('ct-data-item');
-      var item;
-      if (type === 'this') {
-        item = $(this).val().split('::');
-        data.description = item[0];
-        data.caffeine = utils.getInt(item[1]);
-      }
-    });
 
-
-    $('[data-ct-data-new-item-input]').on('input', function(e) {
+    $('[data-ct-data-new-item-input]').on('input change', function(e) {
 
       var modes = $('[data-ct-ui-new-item-mode]');
 
@@ -175,10 +165,35 @@ define(function (require, exports, module) {
   };
 
   /**
+   * Sets the caffeine value from a select list of options.
+   */
+  var selectValue = function() {
+    $(document).on('change input', '[data-ct-data-item]', function() {
+      var item = $(this).data('ct-data-item');
+      var value = $(this).val();
+      /* istanbul ignore else */
+      if (item === 'options') {
+        var found = false;
+        $(this).find('option').each(function() {
+          if ($(this).attr('value') === value) {
+            data.description = value;
+            data.caffeine = utils.getInt($(this).data('ct-data-value'));
+            found = true;
+          }
+        });
+        if (!found) {
+          data.description = '';
+          data.caffeine = 0;
+        }
+      }
+    });
+  };
+
+  /**
    * Sets a target when a data list item is selected.
    */
   var datalistValue = function() {
-    $('[data-ct-datalist-value]').on('input', function() {
+    $(document).on('input', '[data-ct-datalist-value]', function() {
       var value = $(this).val();
       var datalist = $('#' + $(this).attr('list'));
       var target = $('[data-ct-value-target-' + datalist.data('ct-value-target') + ']');
@@ -193,13 +208,15 @@ define(function (require, exports, module) {
       if (!found) {
         target.val('');
       }
+      target.trigger('input');
     });
   };
 
   module.exports.ready = function () {
     view.ready();
     setStage();
-    main();
     datalistValue();
+    selectValue();
+    main();
   };
 });
