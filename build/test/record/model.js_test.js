@@ -30,7 +30,7 @@ define(function(require) {
 
       var record = model.record;
 
-      test('structure', function() {
+      test('Interface', function() {
         ok(record.hasOwnProperty('description'), 'Has a description');
         strictEqual(typeof record.description, 'string', 'Description is a string');
         ok(record.hasOwnProperty('time'), 'Has a time');
@@ -56,6 +56,28 @@ define(function(require) {
         strictEqual('' + record.time, '' + now, '`date` => Parse date');
         record.timeType('', 'none');
         strictEqual('' + record.time, '' + now, 'Invalid option ignored');
+      });
+
+      module('Model - stage');
+
+      var stage = model.stage;
+
+      test('Interface', function() {
+        ok(stage.hasOwnProperty('current'), 'Has a current stage');
+        strictEqual(typeof stage.current, 'number', 'Current stage is a number');
+      });
+
+      test('advance', function() {
+        strictEqual(stage.current, 1, 'Starting at 1');
+        stage.advance();
+        strictEqual(stage.current, 2, 'Moved to 2');
+      });
+      test('retire', function() {
+        strictEqual(stage.current, 2, 'Starting at 2');
+        stage.retire();
+        strictEqual(stage.current, 1, 'Moved to 1');
+        stage.retire();
+        strictEqual(stage.current, 1, 'Does not go below 1');
       });
     }
   };

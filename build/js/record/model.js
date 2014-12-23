@@ -47,4 +47,26 @@ define(function (require, exports, module) {
   };
 
   module.exports.record = new Record();
+
+  var Stage = function stage() {
+    var self = {};
+    var min = 1;
+
+    self.current = min;
+
+    self.advance = function advance() {
+      self.current += 1;
+    };
+
+    self.retire = function retire() {
+      self.current -= 1;
+      if (self.current < min) {
+        self.current = min;
+      }
+    };
+
+    return self;
+  };
+
+  module.exports.stage = new Stage();
 });

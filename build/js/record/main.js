@@ -10,16 +10,13 @@ define(function (require, exports, module) {
   var ESPRESSO = 100; //mg
 
   var data = model.record;
-
-  var stage = 1;
+  var stage = model.stage;
 
   /* istanbul ignore next */
   var advanceStage = function() {
-    stage += 1;
-    var current_stage = $('[data-ct-ui-stage=' + stage + ']');
-    $('[data-ct-ui-stage]').addClass('ui--removed');
-    $('[data-ct-ui-abort]').removeClass('ui--removed');
-    current_stage.removeClass('ui--removed');
+    stage.advance();
+    view.setStage();
+    var current_stage = $('[data-ct-ui-stage=' + stage.current + ']');
     if (current_stage.data('ct-ui-result')) {
       // This is the result stage
       setTimeout(showResult, 0); //TODO fix hack.
@@ -42,7 +39,7 @@ define(function (require, exports, module) {
     if (window.location.hash) {
       var new_stage = parseInt(window.location.hash.slice(1), 10);
       if (!isNaN(new_stage)) {
-        stage = new_stage - 1;
+        stage.retire();
         advanceStage();
       }
     }

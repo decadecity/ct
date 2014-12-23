@@ -1,7 +1,7 @@
 .tt-dropdown-menu {
-  background: #ffffff;
-  border: 1px solid #000000;
   padding: 1em;
+  border: 1px solid #000000;
+  background: #ffffff;
 }
 
 .js #record-form {
@@ -14,8 +14,8 @@
 
 .ui--hidden {
   position: absolute;
-  left: -999em;
   top: -999em;
+  left: -999em;
 }
 
 .disabled {
