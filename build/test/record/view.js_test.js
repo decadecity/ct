@@ -53,6 +53,32 @@ define(function(require) {
         strictEqual($('#default-today').val(), value, 'Date is correctly set (today)');
         strictEqual($('#default-other').val(), 'fnord', 'Arbitrary is correctly set');
       });
+
+      test('resetModeForm', function() {
+        function isFormReset() {
+          var reset = true;
+          $('#resetModeForm').find('[data-ct-ui-new-item-mode]').each(function() {
+            if ($(this).hasClass('disabled')) {
+              reset = false;
+            }
+            if ($(this).data('ct-ui-data-new-item-active')) {
+              reset = false;
+            }
+            $(this).find('input').each(function() {
+              if ($(this).val()) {
+                reset = false;
+              }
+              if ($(this).prop('disabled')) {
+                reset = false;
+              }
+            });
+          });
+          return reset;
+        }
+        strictEqual(isFormReset(), false, 'Initial state');
+        view.resetModeForm();
+        strictEqual(isFormReset(), true, 'Reset');
+      });
     }
   };
 });

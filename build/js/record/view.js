@@ -58,6 +58,19 @@ define(function (require, exports, module) {
     }, 2000);
   };
 
+  /**
+   * Resets the mode form to clear it.
+   */
+  module.exports.resetModeForm = function resetModeForm() {
+    $('[data-ct-ui-new-item-mode]').each(function() {
+      $(this).removeClass('disabled');
+      $(this).data('ct-ui-data-new-item-active', false);
+      $(this).find('input')
+        .prop('disabled', false)
+        .val('');
+    });
+  };
+
   /* istanbul ignore  next */
   module.exports.ready = function() {
     init();
