@@ -75,7 +75,7 @@ module.exports = function(grunt) {
       },
       // Check the unit tests.
       tests: {
-        src: ['build/test/js/**/*_test.js']
+        src: ['build/test/**/*_test.js']
       }
     },
 

@@ -16,6 +16,7 @@ define(function (require, exports, module) {
   var advanceStage = function() {
     stage.advance();
     view.setStage();
+    window.location.hash = stage.current;
     var current_stage = $('[data-ct-ui-stage=' + stage.current + ']');
     if (current_stage.data('ct-ui-result')) {
       // This is the result stage
@@ -35,14 +36,6 @@ define(function (require, exports, module) {
 
   /* istanbul ignore next */
   var setStage = function() {
-
-    if (window.location.hash) {
-      var new_stage = parseInt(window.location.hash.slice(1), 10);
-      if (!isNaN(new_stage)) {
-        stage.retire();
-        advanceStage();
-      }
-    }
 
     $('[data-ct-ui-show-target]').on('click', function() {
       var target = $(this).data('ct-ui-show-target');
@@ -91,17 +84,8 @@ define(function (require, exports, module) {
 
       var modes = $('[data-ct-ui-new-item-mode]');
 
-      function resetForm() {
-        modes.each(function() {
-          $(this).val('');
-          $(this).removeClass('disabled');
-          $(this).find('input').prop('disabled', false);
-          $(this).data('ct-ui-data-new-item-active', false);
-        });
-      }
-
       if (!$(this).val()) {
-        resetForm();
+        view.resetModeForm();
         return;
       }
 
@@ -209,11 +193,31 @@ define(function (require, exports, module) {
     });
   };
 
+  /**
+   * Sets up the hash routing.
+   */
+  var hashRouter = function hashRouter() {
+    $(window).on('hashchange', function () {
+      if (window.location.hash) {
+        var new_stage = parseInt(window.location.hash.slice(1), 10);
+        /* istanbul ignore else */
+        if (!isNaN(new_stage)) {
+          stage.current = new_stage;
+        }
+      } else {
+        stage.current = 1;
+      }
+      view.setStage();
+    });
+  };
+
+  /* istanbul ignore next */
   module.exports.ready = function () {
     view.ready();
     setStage();
     datalistValue();
     selectValue();
+    hashRouter();
     main();
   };
 });

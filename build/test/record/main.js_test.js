@@ -54,6 +54,29 @@ define(function(require) {
         strictEqual(record.caffeine, 0, 'Clears caffeine on unlisted entry');
       });
 
+      test('hashRouter', function(assert) {
+        assert.expect(4);
+        var stage = model.stage;
+        var done1 = assert.async();
+        var done2 = assert.async();
+        var done3 = assert.async();
+        strictEqual(stage.current, 1, 'Initial state');
+        window.location.hash = '2';
+        setTimeout(function() {
+          strictEqual(stage.current, 2, 'Moved to hash');
+          window.location.hash = 'test';
+          done1();
+        }, 1);
+        setTimeout(function() {
+          strictEqual(stage.current, 2, 'Ignore invalid');
+          done2();
+          window.location.hash = '';
+        }, 10);
+        setTimeout(function() {
+          strictEqual(stage.current, 1, 'Reset on blank');
+          done3();
+        }, 20);
+      });
     }
   };
 });
