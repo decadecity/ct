@@ -60,5 +60,25 @@ if ('querySelector' in document && 'addEventListener' in window  && ("classList"
   }
 }());
 </script>
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  {% if user.is_authenticated %}
+    _paq.push(['setUserId', '{{ request.extra.UID }}']);
+  {% endif %}
+  (function() {
+    var u="https://stats.decadecity.net/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 5]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//stats.decadecity.net/piwik.php?idsite=5" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
+
+
   </body>
 </html>

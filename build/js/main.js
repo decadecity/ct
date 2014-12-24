@@ -1,12 +1,16 @@
 define(function (require) {
   "use strict";
 
+  /**
+   * Deal with JS timing out.
+   */
   var CT = window.CAFFEINE_TRACKER;
-
   if (CT.loading.loading) {
+    // The load timeout hasn't cleared so we're good to go.
     CT.loading.timeout = clearTimeout(CT.loading.timeout);
   } else {
     // We've given up on loading the JS :-(
+    // Bug out in a require manner.
     return false;
   }
 

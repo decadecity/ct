@@ -1,3 +1,5 @@
+from hashlib import md5
+
 from django.conf import settings
 
 head_css = ''
@@ -35,4 +37,6 @@ class AddVariablesMiddleware():
             'INLINE_CSS': settings.INLINE_CSS,
             'OFFLINE': settings.OFFLINE,
         }
+        if request.user.is_authenticated:
+            request.extra['UID'] = md5(('%s:%s' % (settings.UID_SALT, request.user.pk)).encode('utf-8')).hexdigest()
         return None
