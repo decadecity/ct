@@ -56,6 +56,8 @@ define(function (require, exports, module) {
     setTimeout(function() {
       $('.messages--success').fadeOut();
     }, 2000);
+
+    $('html').removeClass('js--loading');
   };
 
   /**

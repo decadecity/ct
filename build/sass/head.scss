@@ -1,13 +1,3 @@
-.tt-dropdown-menu {
-  padding: 1em;
-  border: 1px solid #000000;
-  background: #ffffff;
-}
-
-.js #record-form {
-  display: none;
-}
-
 .ui--removed {
   display: none;
 }
@@ -21,3 +11,5 @@
 .disabled {
   opacity: 0.5;
 }
+
+@import 'trumps/js';

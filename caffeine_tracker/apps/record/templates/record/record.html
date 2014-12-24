@@ -18,7 +18,7 @@
 </ul>
 {% endif %}
 
-<form action="{{ request.path }}" method="post" id="record-form">
+<form action="{{ request.path }}" method="post" class="js__hide" id="record-form">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Save" />
@@ -162,5 +162,9 @@
 
   </form>
 </script>
+
+<div class="js__hide--loading">
+  Loading...
+</div>
 
 {% endblock %}

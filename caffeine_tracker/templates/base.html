@@ -29,13 +29,13 @@ if ('querySelector' in document && 'addEventListener' in window  && ("classList"
   // Remember that we have cut the mustard to save checking again in the future.
   window.CAFFEINE_TRACKER.config.ctm = true;
   // CSS hook to allow styling for an initial state when JS is enabled: http://decadecity.net/blog/2013/07/30/coping-without-javascript#css
-  document.querySelector('html').classList.add('js');
+  document.querySelector('html').classList.add('js', 'js--loading');
 }
     </script>
   </head>
   <body>
     {% block body %}{% endblock %}
-    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/main.js' %}" async></script>
     {% block extrajs %}{% endblock %}
   </body>
 </html>

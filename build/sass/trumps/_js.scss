@@ -1,0 +1,17 @@
+/**
+ * Hide if JS is enabled.
+ */
+.js .js__hide {
+  display: none;
+}
+
+/**
+ * Hide whilst JS is loading - reveal on ready.
+ */
+.js__hide--loading {
+  display: none;
+
+  .js--loading & {
+    display: block;
+  }
+}

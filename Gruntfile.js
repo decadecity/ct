@@ -209,7 +209,7 @@ module.exports = function(grunt) {
       // Sass source code.
       sass: {
         files: ['build/sass/**/*.scss'],
-        tasks: ['clean:css', 'scsslint', 'sass:main']
+        tasks: ['clean:css', 'scsslint', 'sass:main', 'cssmin']
       }
     }
   });
