@@ -8,6 +8,7 @@ define(function (require, exports, module) {
   var model = require('./model');
 
   var ESPRESSO = 100; //mg
+  var TEA_BAG = 40; //mg
 
   var data = model.record;
   var stage = model.stage;
@@ -117,6 +118,9 @@ define(function (require, exports, module) {
           }
           if (mode === 'espresso') {
             amount = utils.getInt(inputs[0].value) * ESPRESSO;
+          }
+          if (mode === 'teabag') {
+            amount = utils.getInt(inputs[0].value) * TEA_BAG;
           }
           if (mode === 'concentration') {
             var mg = utils.getInt(inputs[0].value);

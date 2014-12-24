@@ -18,7 +18,7 @@
 </ul>
 {% endif %}
 
-<form action="" method="post" id="record-form">
+<form action="{{ request.path }}" method="post" id="record-form">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Save" />
@@ -27,58 +27,63 @@
 <div id="advanced-form-target"></div>
 
 <script type="html/template" id="advanced-form">
-    <form>
-      <div data-ct-ui-stage="1">
-        <h2>When?</h2>
-        <div data-ct-ui-hide-then>
-          <p><button type="button" data-ct-ui-stage-change="click" data-ct-data-date="now">Now</button></p>
-          <p><button type="button" data-ct-ui-show-target="then">Then</button></p>
-        </div>
-        <div data-ct-ui-show-then class="ui--removed">
+  <form>
+
+    <div data-ct-ui-stage="1">
+      <h2>When?</h2>
+      <div data-ct-ui-hide-then>
+        <p><button type="button" data-ct-ui-stage-change="click" data-ct-data-date="now">Now</button></p>
+        <p><button type="button" data-ct-ui-show-target="then">Then</button></p>
+      </div>
+
+      <div data-ct-ui-show-then class="ui--removed">
+        <p>
+          <label><span class="ui--hidden">Time of day</span>
+            <select data-ct-data-date="time">
+              <option>--Select time of day--</option>
+              <option value="07:00">Breakfast</option>
+              <option value="10:00">Morning</option>
+              <option value="13:00">Lunch</option>
+              <option value="16:00">Afternoon</option>
+              <option value="19:00">Dinner</option>
+              <option value="21:00">Evening</option>
+            </select>
+          </label>
+        </p>
+
+        <p data-ct-ui-checked-hide-when>
+          <label>Today <input type="radio" data-ct-ui-stage-change="checked"  data-ct-data-date="today"/></label>
+          <label>Another day <input type="radio" data-ct-ui-show-checked="when"/></label>
+        </p>
+
+        <div data-ct-ui-checked-show-when class="ui--removed">
           <p>
-            <label><span class="ui--hidden">Time of day</span>
-              <select data-ct-data-date="time">
-                <option>--Select time of day--</option>
-                <option value="07:00">Breakfast</option>
-                <option value="10:00">Morning</option>
-                <option value="13:00">Lunch</option>
-                <option value="16:00">Afternoon</option>
-                <option value="19:00">Dinner</option>
-                <option value="21:00">Evening</option>
-              </select>
+            <label>Date
+              <input type="date" placeholder="yyyy-mm-dd" data-ct-ui-stage-change="complete" data-ct-form-default="today" data-ct-data-date="date"/>
             </label>
+            <button type="button">OK</button>
           </p>
-          <p data-ct-ui-checked-hide-when>
-            <label>Today <input type="radio" data-ct-ui-stage-change="checked"  data-ct-data-date="today"/></label>
-            <label>Another day <input type="radio" data-ct-ui-show-checked="when"/></label>
-          </p>
-          <div data-ct-ui-checked-show-when class="ui--removed">
-            <p>
-              <label>Date
-                <input type="date" placeholder="yyyy-mm-dd" data-ct-ui-stage-change="complete" data-ct-form-default="today" data-ct-data-date="date"/>
-              </label>
-              <button type="button">OK</button>
-            </p>
-          </div>
         </div>
       </div>
-      <div data-ct-ui-stage="2" class="ui--removed">
-        <h2>What?</h2>
-        <div data-ct-ui-hide-item>
-          {% if recent %}
-          <p>
-            <label><span class="ui--hidden">Recent</span>
-              <select data-ct-ui-stage-change="change" data-ct-data-item="options">
-                <option>--Select recent--</option>
-                {% for r in recent %}
-                  <option value="{{ r.item.description }}" data-ct-data-value="{{ r.item.caffeine }}">{{ r.item.description }}</option>
-                {% endfor %}
-              </select>
-            </label>
-          </p>
-          {% endif %}
-          <p><button type="button" data-ct-ui-show-target="item">{% if recent %}Other{% else %}New item{% endif %}</button></p>
-        </div>
+    </div>
+
+    <div data-ct-ui-stage="2" class="ui--removed">
+      <h2>What?</h2>
+      <div data-ct-ui-hide-item>
+        {% if recent %}
+        <p>
+          <label><span class="ui--hidden">Recent</span>
+            <select data-ct-ui-stage-change="change" data-ct-data-item="options">
+              <option>--Select recent--</option>
+              {% for r in recent %}
+                <option value="{{ r.item.description }}" data-ct-data-value="{{ r.item.caffeine }}">{{ r.item.description }}</option>
+              {% endfor %}
+            </select>
+          </label>
+        </p>
+        {% endif %}
+
+        <p><button type="button" data-ct-ui-show-target="item">{% if recent %}Other{% else %}New item{% endif %}</button></p>
       </div>
 
       <div data-ct-ui-show-item data-ct-data-new-item class="ui--removed">
@@ -91,33 +96,71 @@
           {% endfor %}
           </datalist>
         </p>
-        <p data-ct-ui-new-item-mode="absolute"><label>Caffeine content (mg)<input type="number" id="absolute" data-ct-data-new-item-input data-ct-value-target-absolute/></label></p>
+
+        <p data-ct-ui-new-item-mode="absolute">
+          <label>Caffeine content (mg)
+            <input type="number" min="0" id="absolute" data-ct-data-new-item-input data-ct-value-target-absolute/>
+          </label>
+        </p>
+
+
+        <p data-ct-ui-new-item-mode="espresso">
+          <label>Number of shots of espresso
+            <input type="number" min="0" data-ct-data-new-item-input/>
+          </label>
+        </p>
+
+        <p data-ct-ui-new-item-mode="teabag">
+          <label>Number of tea bags
+            <input type="number" min="0" data-ct-data-new-item-input/>
+          </label
+        </p>
+
         <div data-ct-ui-new-item-mode="concentration">
-          <fieldset><ledgend>Caffeine concentration</ledgend>
-            <label>mg<input type="number" data-ct-data-new-item-input/></label>
+          <fieldset>
+            <legend>Caffeine concentration</legend>
+            <label>mg
+              <input type="number" min="0" data-ct-data-new-item-input/>
+            </label>
             per
-            <label>ml<input type="number" data-ct-data-new-item-input/></label>
+            <label>ml
+              <input type="number" min="0" data-ct-data-new-item-input/>
+            </label>
           </fieldset>
-          <label>Quantity <input type="number" data-ct-data-new-item-input/></label>
-          <fieldset><legend>Measure</legend>
-            <label>ml<input type="radio" name="measure" value="ml" data-ct-data-new-item-input/></label>
-            <label>cl<input type="radio" name="measure" value="cl" data-ct-data-new-item-input/></label>
-            <label>l<input type="radio" name="measure" value="l" data-ct-data-new-item-input/></label>
+
+          <label>Quantity
+            <input type="number" min="0" data-ct-data-new-item-input/>
+          </label>
+
+          <fieldset>
+            <legend>Measure</legend>
+            <label>ml
+              <input type="radio" name="measure" value="ml" data-ct-data-new-item-input/>
+            </label>
+            <label>cl
+              <input type="radio" name="measure" value="cl" data-ct-data-new-item-input/>
+            </label>
+            <label>l
+              <input type="radio" name="measure" value="l" data-ct-data-new-item-input/>
+            </label>
           </fieldset>
         </div>
-        <p data-ct-ui-new-item-mode="espresso"><label>Number of shots of espresso<input type="number" data-ct-data-new-item-input/></p>
+
         <p><button type="button" data-ct-ui-data-new-item-save>Save</button></p>
       </div>
 
-      <div data-ct-ui-stage="3" class="ui--removed" data-ct-ui-result="true">
-        <p data-ct-ui-result-text>Item recorded.</p>
-        <input type="reset" data-ct-ui-restart value="Record another"/>
-      </div>
-      <div data-ct-ui-abort>
-        <hr/>
-        <p><input type="reset" data-ct-ui-restart value="Abort"/></p>
-      </div>
-    </form>
+    </div>
+
+    <div data-ct-ui-stage="3" class="ui--removed" data-ct-ui-result="true">
+      <p>Saving...</p>
+    </div>
+
+    <div data-ct-ui-abort>
+      <hr/>
+      <p><input type="reset" data-ct-ui-restart value="Abort"/></p>
+    </div>
+
+  </form>
 </script>
 
 {% endblock %}

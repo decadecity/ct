@@ -28,10 +28,11 @@ def new_item(request):
         form = RecordForm()
 
     recent = request.user.recent_items.all()
+    items = Item.objects.all().extra(select={'lower_desc':'lower(description)'}).order_by('lower_desc')
 
     context = {
         'form': form,
-        'items': Item.objects.all(),
+        'items': items,
         'recent': recent,
     }
 
