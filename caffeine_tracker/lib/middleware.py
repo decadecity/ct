@@ -30,6 +30,7 @@ class AddVariablesMiddleware():
         request.extra = {
             'CACHE_BUSTER': settings.CACHE_BUSTER,
             'CACHE_TIMEOUT': timeout,
+            'DEBUG': settings.DEBUG,
             'HEAD_CSS':  get_head_css(),
             'INLINE_CSS': settings.INLINE_CSS,
             'OFFLINE': settings.OFFLINE,

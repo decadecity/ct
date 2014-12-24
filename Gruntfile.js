@@ -260,7 +260,7 @@ module.exports = function(grunt) {
 
   // Declare tasks
   // Group tasks for CSS and JS.
-  grunt.registerTask('css', ['clean:css', 'scsslint', 'sass']);
+  grunt.registerTask('css', ['clean:css', 'scsslint', 'sass', 'cssmin']);
   grunt.registerTask('js', ['clean:js', 'jshint', 'qunit', 'requirejs']);
   // Group task for minification
   grunt.registerTask('compress', ['uglify', 'cssmin']);

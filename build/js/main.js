@@ -1,6 +1,15 @@
 define(function (require) {
   "use strict";
 
+  var CT = window.CAFFEINE_TRACKER;
+
+  if (CT.loading.loading) {
+    CT.loading.timeout = clearTimeout(CT.loading.timeout);
+  } else {
+    // We've given up on loading the JS :-(
+    return false;
+  }
+
   // Bring in all our dependencies.
   var record = require('record/main');
 
