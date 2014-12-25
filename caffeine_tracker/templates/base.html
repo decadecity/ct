@@ -17,6 +17,7 @@
     <style>{% block styles %}{% endblock %}</style>
 
     <link rel="prefetch" href="{% static 'js/main.min.js' %}?_={{ request.extra.CACHE_BUSTER }}"/>
+    <link rel="dns-prefetch" href="//stats.decadecity.net"/>
 
     <title>{% block title %}Caffeine Tracker{% endblock %}</title>
     <!--<meta name="" content=""/>-->
@@ -68,19 +69,26 @@ if ('querySelector' in document && 'addEventListener' in window  && ("classList"
   {% if user.is_authenticated %}
     _paq.push(['setUserId', '{{ request.extra.UID }}']);
   {% endif %}
-  (function() {
-    var u="https://stats.decadecity.net/";
-    _paq.push(['setTrackerUrl', u+'piwik.php']);
-    _paq.push(['setSiteId', {% if request.extra.DEBUG %}4{% else %}5{% endif %}]);
-    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-    g.type='text/javascript';
-    g.async=true;
-    g.defer=true;
-    g.src=u+'piwik.js';
+  _paq.push(['setCustomVariable', 1, 'ctm', window.CAFFEINE_TRACKER.config.ctm, 'visit']);
+  window.setTimeout(function() {
+    var u = 'https://stats.decadecity.net/';
+    var site_id = 4;
+    if (window.location.host === 'caffeinetracker.decadecity.net') {
+      site_id = 5;
+    }
+    _paq.push(['setTrackerUrl', u + 'piwik.php']);
+    _paq.push(['setSiteId', site_id]);
+    var d = document,
+        g = d.createElement('script'),
+        s = d.getElementsByTagName('script')[0];
+    g.type = 'text/javascript';
+    g.async = true;
+    g.defer = true;
+    g.src= u + 'piwik.js';
     s.parentNode.insertBefore(g,s);
-  })();
+  }, 1000);
 </script>
-<noscript><p><img src="//stats.decadecity.net/piwik.php?idsite=5" style="border:0;" alt="" /></p></noscript>
+<noscript><p><img src="https://stats.decadecity.net/piwik.php?idsite=5" style="border:0;" alt="fnord"/></p></noscript>
 <!-- End Piwik Code -->
 
 
