@@ -15,11 +15,13 @@ define(function (require) {
   }
 
   // Bring in all our dependencies.
-  var record = require('record/main');
+  var record = require('record/main'),
+      caffeine_content = require('caffeine_content');
 
   function readyRunner() {
     // Run the ready() handlers for each module.
     record.ready();
+    caffeine_content.ready();
   }
   /**
    * Run all modules that have handlers for DOM ready.

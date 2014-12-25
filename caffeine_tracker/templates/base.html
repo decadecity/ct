@@ -1,4 +1,5 @@
 {% load static from staticfiles %}
+{% load data_extras %}
 <!DOCTYPE html>
 <html lang="en-GB">
   <head>
@@ -46,6 +47,11 @@ if ('querySelector' in document && 'addEventListener' in window  && ("classList"
     </script>
   </head>
   <body>
+    <header>
+      {% if user.is_authenticated %}
+        <p>Hello {{ user.first_name }}, your estimated caffeine content is <span data-ct-timestamp-now="{% now 'r' %}" id="current_caffeine">{% users_current_caffeine %}</span>mg</p>
+      {% endif %}
+    </header>
     {% block body %}{% endblock %}
 <script>
 (function () {

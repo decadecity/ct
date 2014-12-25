@@ -82,7 +82,7 @@ USE_I18N = False
 
 USE_L10N = False
 
-USE_TZ = True
+USE_TZ = False
 
 # Templates
 
@@ -139,6 +139,8 @@ CACHE_BUSTER = _get_git_revision()[:10]
 INLINE_CSS = True
 
 OFFLINE = False
+
+CAFFEINE_HALF_LIFE = 60 * 60 * 6 # 6 hours.
 
 try:
     from .local import *
