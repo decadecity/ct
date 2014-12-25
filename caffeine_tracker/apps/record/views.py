@@ -22,7 +22,7 @@ def new_item(request):
             record.user = request.user
             record.save()
             messages.success(request, 'Item recorded: %s at %s' % (record.description, record.time))
-            return HttpResponseGetAfterPost(request.path)
+            return HttpResponseGetAfterPost('%s#recorded' % (request.path))
 
     else:
         form = RecordForm()

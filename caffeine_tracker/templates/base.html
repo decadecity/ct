@@ -69,7 +69,10 @@ if ('querySelector' in document && 'addEventListener' in window  && ("classList"
   {% if user.is_authenticated %}
     _paq.push(['setUserId', '{{ request.extra.UID }}']);
   {% endif %}
-  _paq.push(['setCustomVariable', 1, 'ctm', window.CAFFEINE_TRACKER.config.ctm, 'visit']);
+  _paq.push(['setCustomVariable', 1, 'width', window.document.documentElement.clientWidth, 'visit']);
+  _paq.push(['setCustomVariable', 2, 'height', window.document.documentElement.clientHeight, 'visit']);
+  _paq.push(['setCustomVariable', 3, 'density', window.devicePixelRatio, 'visit']);
+  _paq.push(['setCustomVariable', 5, 'ctm', window.CAFFEINE_TRACKER.config.ctm, 'visit']);
   window.setTimeout(function() {
     var u = 'https://stats.decadecity.net/';
     var site_id = 4;
