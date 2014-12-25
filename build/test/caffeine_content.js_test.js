@@ -36,7 +36,7 @@ define(function(require) {
         var expected = {
           'date': new Date('Thu, 25 Dec 2014 22:20:45 +0000'),
           'amount': 13
-        }
+        };
         deepEqual(caffeine_content.getStartData(), expected, 'Got start data');
       });
     }
