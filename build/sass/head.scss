@@ -1,3 +1,11 @@
+// settings
+// tools
+// generic
+// base
+// objects
+// modules
+// trumps
+
 .ui--removed {
   display: none;
 }
@@ -11,5 +19,7 @@
 .disabled {
   opacity: 0.5;
 }
+
+@import 'base/typography';
 
 @import 'trumps/js';

@@ -8,7 +8,7 @@
     <!-- prefetch -->
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <style>@ms-viewport, @viewport { width: device-width !important; }</style>
-{% if request.extra.INLINE_CSS %}
+    {% if request.extra.INLINE_CSS %}
       <!-- Inline a basic stylesheet to improve page render speed and fault tolerance: hhttp://decadecity.net/blog/2014/05/07/asynchronous-css-delivery-for-fault-tolerance -->
       <style>{{ request.extra.HEAD_CSS }}</style>
     {% else %}
@@ -63,32 +63,32 @@ if ('querySelector' in document && 'addEventListener' in window  && ("classList"
 </script>
 <!-- Piwik -->
 <script type="text/javascript">
-  var _paq = _paq || [];
-  _paq.push(['trackPageView']);
-  _paq.push(['enableLinkTracking']);
-  {% if user.is_authenticated %}
-    _paq.push(['setUserId', '{{ request.extra.UID }}']);
-  {% endif %}
-  _paq.push(['setCustomVariable', 1, 'width', window.document.documentElement.clientWidth, 'visit']);
-  _paq.push(['setCustomVariable', 2, 'height', window.document.documentElement.clientHeight, 'visit']);
-  _paq.push(['setCustomVariable', 3, 'density', window.devicePixelRatio, 'visit']);
-  _paq.push(['setCustomVariable', 5, 'ctm', window.CAFFEINE_TRACKER.config.ctm, 'visit']);
+  window._paq = window._paq || [];
   window.setTimeout(function() {
+    var _paq = window._paq;
     var u = 'https://stats.decadecity.net/';
     var site_id = 4;
     if (window.location.host === 'caffeinetracker.decadecity.net') {
       site_id = 5;
     }
+    _paq.push(['enableLinkTracking']);
     _paq.push(['setTrackerUrl', u + 'piwik.php']);
     _paq.push(['setSiteId', site_id]);
-    var d = document,
-        g = d.createElement('script'),
-        s = d.getElementsByTagName('script')[0];
-    g.type = 'text/javascript';
-    g.async = true;
-    g.defer = true;
-    g.src= u + 'piwik.js';
-    s.parentNode.insertBefore(g,s);
+    {% if user.is_authenticated %}
+      _paq.push(['setUserId', '{{ request.extra.UID }}']);
+    {% endif %}
+    _paq.push(['setCustomVariable', 1, 'width', window.document.documentElement.clientWidth, 'visit']);
+    _paq.push(['setCustomVariable', 2, 'height', window.document.documentElement.clientHeight, 'visit']);
+    _paq.push(['setCustomVariable', 3, 'density', window.devicePixelRatio, 'visit']);
+    _paq.push(['setCustomVariable', 5, 'ctm', window.CAFFEINE_TRACKER.config.ctm, 'visit']);
+    _paq.push(['trackPageView']);
+    var script = document.createElement('script'),
+        first_script = document.getElementsByTagName('script')[0];
+    script.type = 'text/javascript';
+    script.async = true;
+    script.defer = true;
+    script.src= u + 'piwik.js';
+    first_script.parentNode.insertBefore(script,first_script);
   }, 1000);
 </script>
 <noscript><p><img src="https://stats.decadecity.net/piwik.php?idsite=5" style="border:0;" alt="fnord"/></p></noscript>

@@ -37,3 +37,12 @@ def new_item(request):
     }
 
     return render(request, 'record/record.html', context)
+
+@login_required
+def view_items(request):
+    records = request.user.records.all()
+
+    context = {
+        'records': records
+    }
+    return render(request, 'record/records.html', context)
