@@ -63,5 +63,6 @@ class CurrentCaffeineTestCase(TestCase):
 
     def test_amount_at_time(self):
         """Test the half life calculation."""
+        self.assertEqual(_amount_at_time(0, 0, 60 * 60 * 6), 0, 'No caffeine')
         self.assertEqual(_amount_at_time(100, 0, 60 * 60 * 6), 50, 'One half life')
 
