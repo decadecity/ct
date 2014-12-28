@@ -2,7 +2,7 @@ import simplejson
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 
 from caffeine_tracker.lib.utils import HttpResponseGetAfterPost
 
@@ -22,7 +22,7 @@ def new_item(request):
             record.user = request.user
             record.save()
             messages.success(request, 'Item recorded: %s at %s' % (record.description, record.time))
-            return HttpResponseGetAfterPost('%s#recorded' % (request.path))
+            return HttpResponseGetAfterPost('%s#recorded' % (request.get_full_path()))
 
     else:
         form = RecordForm()
@@ -34,9 +34,11 @@ def new_item(request):
         'form': form,
         'items': items,
         'recent': recent,
+        'advanced_form': True,
     }
 
     return render(request, 'record/record.html', context)
+
 
 @login_required
 def view_items(request):
@@ -46,3 +48,30 @@ def view_items(request):
         'records': records
     }
     return render(request, 'record/records.html', context)
+
+
+@login_required
+def edit_item(request):
+
+    record_pk = request.GET.get('id', None)
+    record = get_object_or_404(Record, pk=record_pk)
+
+    if request.method == 'POST':
+        form = RecordForm(request.POST)
+        if not form.is_valid():
+            messages.error(request, 'There was a problem editing the item.')
+        else:
+            record = form.save(commit=False)
+            record.user = request.user
+            record.save()
+            messages.success(request, 'Item edited: %s at %s' % (record.description, record.time))
+            return HttpResponseGetAfterPost('%s#edited' % (request.get_full_path()))
+
+    else:
+        form = RecordForm(instance=record)
+
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'record/record.html', context)

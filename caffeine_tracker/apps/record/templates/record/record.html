@@ -18,12 +18,13 @@
 </ul>
 {% endif %}
 
-<form action="{{ request.path }}" method="post" class="js__hide" id="record-form">
+<form action="{{ request.get_full_path }}" method="post" class="{% if advanced_form %}js__hide{% endif %}" id="record-form">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Save" />
 </form>
 
+{% if advanced_form %}
 <div id="advanced-form-target"></div>
 
 <script type="html/template" id="advanced-form">
@@ -166,5 +167,6 @@
 <div class="js__hide--loading">
   Loading...
 </div>
+{% endif %}
 
 {% endblock %}

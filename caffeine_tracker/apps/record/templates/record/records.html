@@ -10,11 +10,11 @@
 {% else %}
   <table class="recorded-items">
   <thead>
-    <tr><th>Description</th><th>Time</th><th>Caffeine (mg)</th></tr>
+    <tr><th>Description</th><th>Time</th><th>Caffeine (mg)</th><td></td></tr>
   </thead>
   <tbody>
   {% for record in records %}
-    <tr class="recorded-items__item"><td>{{ record.description }}</td><td>{{ record.time }}</td><td>{{ record.caffeine }}</td></tr>
+    <tr class="recorded-items__item"><td>{{ record.description }}</td><td>{{ record.time }}</td><td>{{ record.caffeine }}</td><td><a href="{% url 'edit_record' %}?id={{ record.pk }}">Edit</a></td></tr>
   {% endfor %}
   </tbody>
   </table>
