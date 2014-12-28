@@ -8,7 +8,7 @@ define(function (require, exports, module) {
   var model = require('./model');
 
   var ESPRESSO = 100; //mg
-  var TEA_BAG = 40; //mg
+  var TEA_BAG = 60; //mg
 
   var data = model.record;
   var stage = model.stage;
