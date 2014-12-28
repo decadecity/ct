@@ -85,7 +85,7 @@ define(function (require, exports, module) {
 
       var modes = $('[data-ct-ui-new-item-mode]');
 
-      if (!$(this).val()) {
+      if (!$(this).val() && !$(this).is(':checked')) {
         view.resetModeForm();
         return;
       }
