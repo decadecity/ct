@@ -1,0 +1,19 @@
+.btn {
+  display: inline-block;
+  padding: 0.25em 0.5em;
+  border: 0.0625em solid $dark;
+  border-radius: 0.5em;
+  background-color: $rich;
+  color: $lightest;
+  text-decoration: none;
+  box-shadow: 1px 1px 1px $shadow;
+
+  &:hover {
+    color: $lighter;
+    box-shadow: none;
+  }
+
+  &:active {
+    box-shadow: -1px -1px 1px $shadow;
+  }
+}

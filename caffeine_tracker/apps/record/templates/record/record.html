@@ -21,7 +21,7 @@
 <form action="{{ request.get_full_path }}" method="post" class="{% if advanced_form %}js__hide{% endif %}" id="record-form">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Save" />
+    <input class="btn" type="submit" value="Save" />
 </form>
 
 {% if advanced_form %}
@@ -33,8 +33,8 @@
     <div data-ct-ui-stage="1">
       <h2>When?</h2>
       <div data-ct-ui-hide-then>
-        <p><button type="button" data-ct-ui-stage-change="click" data-ct-data-date="now">Now</button></p>
-        <p><button type="button" data-ct-ui-show-target="then">Then</button></p>
+        <p><button class="btn" type="button" data-ct-ui-stage-change="click" data-ct-data-date="now">Now</button></p>
+        <p><button class="btn" type="button" data-ct-ui-show-target="then">Then</button></p>
       </div>
 
       <div data-ct-ui-show-then class="ui--removed">
@@ -62,7 +62,7 @@
             <label>Date
               <input type="date" placeholder="yyyy-mm-dd" data-ct-ui-stage-change="complete" data-ct-form-default="today" data-ct-data-date="date"/>
             </label>
-            <button type="button">OK</button>
+            <button class="btn" type="button">OK</button>
           </p>
         </div>
       </div>
@@ -84,7 +84,7 @@
         </p>
         {% endif %}
 
-        <p><button type="button" data-ct-ui-show-target="item">{% if recent %}Other{% else %}New item{% endif %}</button></p>
+        <p><button class="btn" type="button" data-ct-ui-show-target="item">{% if recent %}Other{% else %}New item{% endif %}</button></p>
       </div>
 
       <div data-ct-ui-show-item data-ct-data-new-item class="ui--removed">
@@ -147,7 +147,7 @@
           </fieldset>
         </div>
 
-        <p><button type="button" data-ct-ui-data-new-item-save>Save</button></p>
+        <p><button class="btn" type="button" data-ct-ui-data-new-item-save>Save</button></p>
       </div>
 
     </div>
@@ -158,7 +158,7 @@
 
     <div data-ct-ui-abort>
       <hr/>
-      <p><input type="reset" data-ct-ui-restart value="Abort"/></p>
+      <p><input class="btn" type="reset" data-ct-ui-restart value="Abort"/></p>
     </div>
 
   </form>

@@ -4,3 +4,19 @@ body {
   font-family: sans-serif;
   font-size: 100%;
 }
+
+a {
+  color: $rich;
+
+  &:visited {
+    color: $rich;
+  }
+
+  &:hover {
+    color: $orange;
+  }
+}
+
+input, button, select {
+  font-size: 1em;
+}
