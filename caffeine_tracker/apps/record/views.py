@@ -36,7 +36,6 @@ def new_item(request):
         'recent': recent,
         'advanced_form': True,
     }
-
     return render(request, 'record/record.html', context)
 
 
@@ -57,13 +56,11 @@ def edit_item(request):
     record = get_object_or_404(Record, pk=record_pk)
 
     if request.method == 'POST':
-        form = RecordForm(request.POST)
+        form = RecordForm(request.POST, instance=record)
         if not form.is_valid():
             messages.error(request, 'There was a problem editing the item.')
         else:
-            record = form.save(commit=False)
-            record.user = request.user
-            record.save()
+            record = form.save()
             messages.success(request, 'Item edited: %s at %s' % (record.description, record.time))
             return HttpResponseGetAfterPost('%s#edited' % (request.get_full_path()))
 
@@ -73,5 +70,4 @@ def edit_item(request):
     context = {
         'form': form,
     }
-
     return render(request, 'record/record.html', context)
