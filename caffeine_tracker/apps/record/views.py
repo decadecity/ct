@@ -2,6 +2,7 @@ import simplejson
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404, render
 
 from caffeine_tracker.lib.utils import HttpResponseGetAfterPost
@@ -71,3 +72,20 @@ def edit_item(request):
         'form': form,
     }
     return render(request, 'record/record.html', context)
+
+
+@login_required
+def delete_item(request):
+
+    record_pk = request.GET.get('id', None)
+    record = get_object_or_404(Record, pk=record_pk)
+
+    if request.method == 'POST':
+        record.delete()
+        messages.success(request, 'Item deleted: %s at %s' % (record.description, record.time))
+        return HttpResponseGetAfterPost('%s#deleted' % (reverse(view_items)))
+
+    context = {
+        'record': record,
+    }
+    return render(request, 'record/delete.html', context)

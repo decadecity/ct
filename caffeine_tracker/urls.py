@@ -13,6 +13,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^record/item', 'caffeine_tracker.apps.record.views.new_item', name='add_record'),
     url(r'^edit/item', 'caffeine_tracker.apps.record.views.edit_item', name='edit_record'),
+    url(r'^delete/item', 'caffeine_tracker.apps.record.views.delete_item', name='delete_record'),
     url(r'^view/items', 'caffeine_tracker.apps.record.views.view_items', name='view_records'),
     url(r'^accounts/login/$', 'django.contrib.auth.views.login', name='login'),
 )

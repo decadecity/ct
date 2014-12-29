@@ -4,6 +4,14 @@
 {% block title %}Recorded items{% endblock %}
 
 {% block body %}
+{% if messages %}
+<ul class="messages{% if not form.errors %} messages--success{% endif %}" id="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
 <h1>Recorded items</h1>
 {% if not records %}
   <p>There are no recorded items</p>
@@ -14,7 +22,7 @@
   </thead>
   <tbody>
   {% for record in records %}
-    <tr class="recorded-items__item"><td>{{ record.description }}</td><td>{{ record.time }}</td><td>{{ record.caffeine }}</td><td><a href="{% url 'edit_record' %}?id={{ record.pk }}">Edit</a></td></tr>
+    <tr class="recorded-items__item"><td>{{ record.description }}</td><td>{{ record.time }}</td><td>{{ record.caffeine }}</td><td><a href="{% url 'edit_record' %}?id={{ record.pk }}">Edit</a> <a href="{% url 'delete_record' %}?id={{ record.pk }}">Delete</a></td></tr>
   {% endfor %}
   </tbody>
   </table>
