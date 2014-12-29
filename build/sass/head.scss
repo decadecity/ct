@@ -20,6 +20,11 @@
   opacity: 0.5;
 }
 
+@import 'settings/colours';
+
 @import 'base/typography';
+
+@import 'objects/zebra';
+@import 'objects/data-table';
 
 @import 'trumps/js';

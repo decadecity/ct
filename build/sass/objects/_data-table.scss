@@ -1,0 +1,23 @@
+.data-table {
+  border-collapse: collapse;
+
+  tr, td, th {
+    margin: 0;
+    padding: 0;
+  }
+
+  td, th {
+    padding: 0.25em;
+    padding-right: 0.5em;
+    padding-left: 0.5em;
+    border-top: 1px solid $dark;
+
+    &:first-of-type {
+      border-left: 1px solid $dark;
+    }
+
+    &:last-of-type {
+      border-right: 1px solid $dark;
+    }
+  }
+}

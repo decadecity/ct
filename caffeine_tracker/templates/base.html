@@ -11,7 +11,7 @@
     <style>@ms-viewport, @viewport { width: device-width !important; }</style>
     {% if request.extra.INLINE_CSS %}
       <!-- Inline a basic stylesheet to improve page render speed and fault tolerance: hhttp://decadecity.net/blog/2014/05/07/asynchronous-css-delivery-for-fault-tolerance -->
-      <style>{{ request.extra.HEAD_CSS }}</style>
+      <style>{{ request.extra.HEAD_CSS|safe }}</style>
     {% else %}
       <link href="{% static 'css/head.css' %}?_={{ request.extra.CACHE_BUSTER }}" rel="stylesheet"/>
     {% endif %}

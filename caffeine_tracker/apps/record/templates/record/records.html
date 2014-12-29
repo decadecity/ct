@@ -16,11 +16,11 @@
 {% if not records %}
   <p>There are no recorded items</p>
 {% else %}
-  <table class="recorded-items">
+  <table class="recorded-items data-table">
   <thead>
-    <tr><th>Description</th><th>Time</th><th>Caffeine (mg)</th><td></td></tr>
+    <tr><th>Description</th><th>Time</th><th>Caffeine (mg)</th><th></th></tr>
   </thead>
-  <tbody>
+  <tbody class="zebra">
   {% for record in records %}
     <tr class="recorded-items__item"><td>{{ record.description }}</td><td>{{ record.time }}</td><td>{{ record.caffeine }}</td><td><a href="{% url 'edit_record' %}?id={{ record.pk }}">Edit</a> <a href="{% url 'delete_record' %}?id={{ record.pk }}">Delete</a></td></tr>
   {% endfor %}
