@@ -1,0 +1,31 @@
+.menu {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+menu__control {
+  text-align: right;
+}
+
+.menu__items {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 10em;
+  padding: 0;
+  padding-top: 0.5em;
+  border: 0.0625em solid $dark;
+  background-color: $background;
+  list-style-type: none;
+}
+
+.menu__item {
+  padding-bottom: 0.5em;
+  padding-left: 0.5em;
+}
+
+
+.menu__remainder {
+  margin-right: 11em;
+}

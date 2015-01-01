@@ -49,7 +49,14 @@ if ('querySelector' in document && 'addEventListener' in window  && ("classList"
   <body>
     <header>
       {% if user.is_authenticated %}
-        <p>Hello {{ user.first_name }}, your estimated caffeine content is <span data-ct-timestamp-now="{% now 'r' %}" id="current_caffeine">{% users_current_caffeine %}</span>mg. | <a href="{% url 'add_record' %}">Add</a> | <a href="{% url 'view_records' %}">View recent</a> |</p>
+        <p class="menu__remainder">Hello {{ user.first_name }}, your estimated caffeine content is <span data-ct-timestamp-now="{% now 'r' %}" id="current_caffeine">{% users_current_caffeine %}</span>mg.</p>
+        <nav class="menu">
+          <div class="menu__control">menu</div>
+          <ul class="menu__items">
+            <li class="menu__item"><a href="{% url 'add_record' %}">Add</a></li>
+            <li class="menu__item"><a href="{% url 'view_records' %}">View recent</a></li>
+          </ul>
+        </nav>
       {% endif %}
     </header>
     {% block body %}{% endblock %}
