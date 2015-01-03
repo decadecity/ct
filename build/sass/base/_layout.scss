@@ -13,8 +13,14 @@ body {
   background-color: $background;
   color: $dark;
   overflow-x: hidden;
+  overflow-y: auto;
 }
 
-.layout_innerwrapper {
+.layout__innerwrapper {
   position: relative;
+}
+
+.layout__window {
+  height: 100vh;
+  overflow-y: auto;
 }

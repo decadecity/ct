@@ -15,7 +15,7 @@ $menu-without-width: 6em;
 .menu__body {
   .js & {
     position: absolute;
-    top: -1em;
+    top: -0;
     right: 0 - $menu-width - 3em;
     width: $menu-width;
     height: 100vh;
@@ -67,7 +67,7 @@ $menu-without-width: 6em;
 
 .menu__control--without-menu {
   position: relative;
-  top: -1em;
+  top: 0;
   right: -0.5em;
   width: $menu-without-width;
   border-top-left-radius: 0;

@@ -47,10 +47,16 @@ if ('querySelector' in document && 'addEventListener' in window  && ("classList"
     </script>
   </head>
   <body>
-  <div class="layout__wrapper"><div class="layout_innerwrapper">
+  <div class="layout__wrapper"><div class="layout__innerwrapper">
+    <section class="layout__window">
     <header>
       {% if user.is_authenticated %}
         <p class="menu__remainder">Hello {{ user.first_name }}, your estimated caffeine content is <span data-ct-timestamp-now="{% now 'r' %}" id="current_caffeine">{% users_current_caffeine %}</span>mg.</p>
+      {% endif %}
+    </header>
+    {% block body %}{% endblock %}
+    </section>
+
         <nav class="menu">
           <button data-ct-ui-menu-control class="btn menu__control menu__control--without-menu menu--slide">menu</button>
           <div class="menu__body menu--slide">
@@ -61,9 +67,6 @@ if ('querySelector' in document && 'addEventListener' in window  && ("classList"
             </ul>
           </div>
         </nav>
-      {% endif %}
-    </header>
-    {% block body %}{% endblock %}
   </div></div>
 <script>
 (function () {
