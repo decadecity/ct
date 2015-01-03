@@ -1,7 +1,15 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
 .layout__wrapper {
   max-width: 55em;
-  margin: auto;
-  padding: 0.5em;
+  height: 100vh;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 0.5em;
+  padding-left: 0.5em;
   background-color: $background;
   color: $dark;
   overflow-x: hidden;

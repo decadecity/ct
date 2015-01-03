@@ -10,13 +10,13 @@ menu__control {
 
 .menu__body {
   position: absolute;
-  top: -1.5625em;
+  top: -1em;
   right: -13em;
   width: 10em;
   height: 100vh;
   padding: 0;
   transition: right 0.5s ease;
-  border: 0.0625em solid $dark;
+  border-left: 0.0625em solid $dark;
   background-color: $orange;
   color: $lightest;
 
@@ -50,8 +50,11 @@ menu__control {
 
 .menu__control {
   position: relative;
-  top: -1.5em;
+  top: -1em;
   right: -0.5em;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .menu__control--in-menu {
