@@ -37,7 +37,7 @@ def new_item(request):
         'recent': recent,
         'advanced_form': True,
     }
-    return render(request, 'record/record.html', context)
+    return render(request, 'record/edit_record.html', context)
 
 
 @login_required
@@ -47,7 +47,7 @@ def view_items(request):
     context = {
         'records': records
     }
-    return render(request, 'record/records.html', context)
+    return render(request, 'record/view_records.html', context)
 
 
 @login_required
@@ -71,7 +71,7 @@ def edit_item(request):
     context = {
         'form': form,
     }
-    return render(request, 'record/record.html', context)
+    return render(request, 'record/edit_record.html', context)
 
 
 @login_required
@@ -88,4 +88,4 @@ def delete_item(request):
     context = {
         'record': record,
     }
-    return render(request, 'record/delete.html', context)
+    return render(request, 'record/delete_record.html', context)
