@@ -1,0 +1,11 @@
+.layout__wrapper {
+  max-width: 55em;
+  margin: auto;
+  padding: 0.5em;
+  background-color: $background;
+  color: $dark;
+}
+
+.layout_innerwrapper {
+  position: relative;
+}

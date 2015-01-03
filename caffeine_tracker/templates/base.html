@@ -47,6 +47,7 @@ if ('querySelector' in document && 'addEventListener' in window  && ("classList"
     </script>
   </head>
   <body>
+  <div class="layout__wrapper"><div class="layout_innerwrapper">
     <header>
       {% if user.is_authenticated %}
         <p class="menu__remainder">Hello {{ user.first_name }}, your estimated caffeine content is <span data-ct-timestamp-now="{% now 'r' %}" id="current_caffeine">{% users_current_caffeine %}</span>mg.</p>
@@ -60,6 +61,7 @@ if ('querySelector' in document && 'addEventListener' in window  && ("classList"
       {% endif %}
     </header>
     {% block body %}{% endblock %}
+  </div></div>
 <script>
 (function () {
   // Use JavaScript to asynchronously insert the core JS functionality.
