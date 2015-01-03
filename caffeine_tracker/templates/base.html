@@ -51,7 +51,7 @@ if ('querySelector' in document && 'addEventListener' in window  && ("classList"
       {% if user.is_authenticated %}
         <p class="menu__remainder">Hello {{ user.first_name }}, your estimated caffeine content is <span data-ct-timestamp-now="{% now 'r' %}" id="current_caffeine">{% users_current_caffeine %}</span>mg.</p>
         <nav class="menu">
-          <div class="menu__control">menu</div>
+          <button data-ct-ui-menu-control class="btn menu__control">menu</button>
           <ul class="menu__items">
             <li class="menu__item"><a href="{% url 'add_record' %}">Add</a></li>
             <li class="menu__item"><a href="{% url 'view_records' %}">View recent</a></li>
