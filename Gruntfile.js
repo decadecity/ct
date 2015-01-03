@@ -210,6 +210,12 @@ module.exports = function(grunt) {
       sass: {
         files: ['build/sass/**/*.scss'],
         tasks: ['clean:css', 'scsslint', 'sass:main', 'cssmin']
+      },
+      dist: {
+        files: ['dist/**/*'],
+        options: {
+          livereload: true
+        }
       }
     }
   });
