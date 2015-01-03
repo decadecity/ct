@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+
+{% block title %}Recorded items{% endblock %}
+
+{% block body %}
+{% if messages %}
+<ul class="messages{% if not form.errors %} messages--success{% endif %}" id="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<h1>Events</h1>
+{% if not events %}
+  <p>There are no recorded events</p>
+{% else %}
+<div class="table-wrap">
+  <table class="recorded-items data-table stacked-table">
+  <thead>
+    <tr><th>Description</th><th>Time</th>{% comment %}<th></th>{% endcomment %}</tr>
+  </thead>
+  <tbody class="zebra">
+  {% for event in events %}
+    <tr class="recorded-items__item">
+      <td data-ct-table-title="Description">{{ event.description }}</td>
+      <td data-ct-table-title="Time">{{ event.time }}</td>
+      {% comment %}<td>
+        <a class="btn" href="{% url 'edit_record' %}?id={{ event.pk }}">Edit</a>
+        <a class="btn" href="{% url 'delete_record' %}?id={{ event.pk }}">Delete</a>
+      </td>{% endcomment %}
+    </tr>
+  {% endfor %}
+  </tbody>
+  </table>
+</div>
+{% endif %}
+{% endblock %}

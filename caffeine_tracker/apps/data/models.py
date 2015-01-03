@@ -64,3 +64,15 @@ def log_items(sender, **kwargs):
     recent.time = record.time
     recent.count += 1
     recent.save()
+
+
+class Event(models.Model):
+    time = models.DateTimeField(default=datetime.now)
+    description = models.CharField(max_length=255)
+    user = models.ForeignKey(User, related_name='events')
+
+    def __str__(self):
+        return '%s' % (self.description)
+
+    class Meta:
+        ordering = ['-time']

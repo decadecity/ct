@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static from staticfiles %}
 
-{% block title %}Record an item{% endblock %}
+{% block title %}Record an event{% endblock %}
 
 {% block body %}
 {% if messages or form.errors %}
@@ -17,7 +17,7 @@
     {% endfor %}
 </ul>
 {% endif %}
-<h1>Item</h1>
+<h1>Event</h1>
 
 <form action="{{ request.get_full_path }}" method="post" class="{% if advanced_form %}js__hide{% endif %}" id="record-form">
     {% csrf_token %}
@@ -78,76 +78,26 @@
             <select data-ct-ui-stage-change="change" data-ct-data-item="options">
               <option>--Select recent--</option>
               {% for r in recent %}
-                <option value="{{ r.item.description }}" data-ct-data-value="{{ r.item.caffeine }}">{{ r.item.description }}</option>
+                <option value="{{ r.description }}">{{ r.description }}</option>
               {% endfor %}
             </select>
           </label>
         </p>
         {% endif %}
 
-        <p><button class="btn" type="button" data-ct-ui-show-target="item">{% if recent %}Other{% else %}New item{% endif %}</button></p>
+        <p><button class="btn" type="button" data-ct-ui-show-target="item">{% if recent %}Other{% else %}New event{% endif %}</button></p>
       </div>
 
       <div data-ct-ui-show-item data-ct-data-new-item class="ui--removed">
         <p>Enter new item.</p>
         <p>
-          <label>Name<input list="items" id="new_item" data-ct-datalist-value/></label>
-          <datalist id="items" data-ct-value-target="absolute">
-          {% for item in items %}
-            <option value="{{ item.description }}" data-ct-data-value="{{ item.caffeine }}"/>
+          <label>Name<input list="items" id="new_item"/></label>
+          <datalist id="items">
+          {% for event in events %}
+            <option value="{{ event.description }}"/>
           {% endfor %}
           </datalist>
         </p>
-
-        <p data-ct-ui-new-item-mode="absolute">
-          <label>Caffeine content (mg)
-            <input type="number" min="0" id="absolute" data-ct-data-new-item-input data-ct-value-target-absolute/>
-          </label>
-        </p>
-
-
-        <p data-ct-ui-new-item-mode="espresso">
-          <label>Number of shots of espresso
-            <input type="number" min="0" data-ct-data-new-item-input/>
-          </label>
-        </p>
-
-        <p data-ct-ui-new-item-mode="teabag">
-          <label>Number of tea bags
-            <input type="number" min="0" data-ct-data-new-item-input/>
-          </label
-        </p>
-
-        <div data-ct-ui-new-item-mode="concentration">
-          <fieldset>
-            <legend>Caffeine concentration</legend>
-            <label>mg
-              <input type="number" min="0" data-ct-data-new-item-input/>
-            </label>
-            per
-            <label>ml
-              <input type="number" min="0" data-ct-data-new-item-input/>
-            </label>
-          </fieldset>
-
-          <label>Quantity
-            <input type="number" min="0" data-ct-data-new-item-input/>
-          </label>
-
-          <fieldset>
-            <legend>Measure</legend>
-            <label>ml
-              <input type="radio" name="measure" value="ml" data-ct-data-new-item-input/>
-            </label>
-            <label>cl
-              <input type="radio" name="measure" value="cl" data-ct-data-new-item-input/>
-            </label>
-            <label>l
-              <input type="radio" name="measure" value="l" data-ct-data-new-item-input/>
-            </label>
-          </fieldset>
-        </div>
-
         <p><button class="btn" type="button" data-ct-ui-data-new-item-save>Save</button></p>
       </div>
 
