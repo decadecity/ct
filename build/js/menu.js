@@ -7,7 +7,6 @@ define(function (require, exports, module) {
   var toggleMenu = function() {
     $(document).on('click', '[data-ct-ui-menu-control]', function() {
       $('body').toggleClass('menu--open');
-      console.log('toggle');
     });
   };
 
