@@ -17,16 +17,16 @@
   <p>There are no recorded items</p>
 {% else %}
 <div class="table-wrap">
-  <table class="recorded-items data-table">
+  <table class="recorded-items data-table stacked-table">
   <thead>
     <tr><th>Description</th><th>Time</th><th>Caffeine (mg)</th><th></th></tr>
   </thead>
   <tbody class="zebra">
   {% for record in records %}
     <tr class="recorded-items__item">
-      <td>{{ record.description }}</td>
-      <td>{{ record.time }}</td>
-      <td>{{ record.caffeine }}</td>
+      <td data-ct-table-title="Description">{{ record.description }}</td>
+      <td data-ct-table-title="Time">{{ record.time }}</td>
+      <td data-ct-table-title="Cafffeine (mg)">{{ record.caffeine }}</td>
       <td>
         <a class="btn" href="{% url 'edit_record' %}?id={{ record.pk }}">Edit</a>
         <a class="btn" href="{% url 'delete_record' %}?id={{ record.pk }}">Delete</a>

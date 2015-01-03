@@ -14,14 +14,17 @@
     padding: 0.25em;
     padding-right: 0.5em;
     padding-left: 0.5em;
-    border-top: 1px solid $dark;
+    border-width: 0;
+    border-top-width: 1px;
+    border-style: solid;
+    border-color: $dark;
 
     &:first-of-type {
-      border-left: 1px solid $dark;
+      border-left-width: 1px;
     }
 
     &:last-of-type {
-      border-right: 1px solid $dark;
+      border-right-width: 1px;
     }
   }
 }

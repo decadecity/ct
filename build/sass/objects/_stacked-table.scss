@@ -1,0 +1,35 @@
+@media (max-width: 30em) {
+  .stacked-table {
+    width: 95%;
+
+    thead {
+      display: none;
+    }
+
+    tr {
+      display: block;
+      margin-bottom: 1em;
+    }
+
+    th, td {
+      display: block;
+      border-top-width: 0;
+      border-right-width: 1px;
+      border-bottom-width: 0;
+      border-left-width: 1px;
+
+      &[data-ct-table-title]::before {
+        font-weight: bold;
+        content: attr(data-ct-table-title) ': ';
+      }
+
+      &:first-of-type {
+        border-top-width: 1px;
+      }
+
+      &:last-of-type {
+        border-bottom-width: 1px;
+      }
+    }
+  }
+}
