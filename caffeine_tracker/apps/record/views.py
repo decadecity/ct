@@ -10,6 +10,7 @@ from django.shortcuts import get_object_or_404, render
 from caffeine_tracker.lib.utils import HttpResponseGetAfterPost
 
 from caffeine_tracker.apps.data.models import Event, Record, Item
+from caffeine_tracker.apps.data.utils import current_caffeine
 
 from .forms import EventForm, RecordForm
 
@@ -147,10 +148,11 @@ def overview(request):
     records = request.user.records.filter(time__gte=start_date)
 
     for record in records:
-        if record.caffeine_remaining() > 10:
+        if record.caffeine_remaining() > 2:
             items.append(record)
 
     for event in events:
+        event.caffeine_level = current_caffeine(request.user, datetime.now().timestamp())
         items.append(event)
 
     items = sorted(items, key=lambda r: r.time, reverse=True)
