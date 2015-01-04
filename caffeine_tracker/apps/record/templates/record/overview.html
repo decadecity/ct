@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+
+{% block title %}Overview{% endblock %}
+
+{% block body %}
+{% if messages %}
+<ul class="messages{% if not form.errors %} messages--success{% endif %}" id="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<h1>Overview</h1>
+{% if not items %}
+  <p>There are no recorded items</p>
+{% else %}
+<div class="table-wrap">
+  <table class="recorded-items data-table stacked-table">
+  <thead>
+    <tr><th>What</th><th>When</th><th>Caffeine remaining (mg)</th></tr>
+  </thead>
+  <tbody class="zebra">
+  {% for item in items %}
+    <tr class="recorded-items__item">
+      <td data-ct-table-title="What">{{ item.description }}</td>
+      <td data-ct-table-title="When">{{ item.time|timesince }} ago</td>
+      {% if item.caffeine_remaining %}
+        <td data-ct-table-title="Cafffeine remaining (mg)">{{ item.caffeine_remaining|floatformat:"0" }}</td>
+      {% else %}
+        <td></td>
+      {% endif %}
+    </tr>
+  {% endfor %}
+  </tbody>
+  </table>
+</div>
+{% endif %}
+{% endblock %}

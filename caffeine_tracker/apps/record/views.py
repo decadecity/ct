@@ -1,4 +1,5 @@
 import simplejson
+from datetime import datetime, timedelta
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -135,3 +136,26 @@ def view_events(request):
         'events': events
     }
     return render(request, 'record/view_events.html', context)
+
+@login_required
+def overview(request):
+
+    items = []
+
+    start_date = datetime.now() - timedelta(days=4)
+    events = request.user.events.filter(time__gte=start_date)
+    records = request.user.records.filter(time__gte=start_date)
+
+    for record in records:
+        if record.caffeine_remaining() > 10:
+            items.append(record)
+
+    for event in events:
+        items.append(event)
+
+    items = sorted(items, key=lambda r: r.time, reverse=True)
+
+    context = {
+        'items': items,
+    }
+    return render(request, 'record/overview.html', context)

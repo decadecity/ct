@@ -22,6 +22,8 @@ urlpatterns = patterns('',
     #url(r'^delete/event', 'caffeine_tracker.apps.record.views.delete_event', name='delete_event'),
     url(r'^view/events', 'caffeine_tracker.apps.record.views.view_events', name='view_events'),
 
+    url(r'^overview', 'caffeine_tracker.apps.record.views.overview', name='overview'),
+
     url(r'^accounts/login/$', 'django.contrib.auth.views.login', name='login'),
 )
 

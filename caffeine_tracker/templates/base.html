@@ -50,29 +50,35 @@ if ('querySelector' in document && 'addEventListener' in window  && ("classList"
   <div class="layout__wrapper"><div class="layout__innerwrapper">
     <section class="layout__window">
     <header>
-      {% if user.is_authenticated %}
-        <p class="menu__remainder">Hello {{ user.first_name }}, your estimated caffeine content is <span data-ct-timestamp-now="{% now 'r' %}" id="current_caffeine">{% users_current_caffeine %}</span>mg.</p>
-      {% endif %}
+    {% if user.is_authenticated %}
+      <p class="menu__remainder">Hello {{ user.first_name }}, your estimated caffeine content is <span data-ct-timestamp-now="{% now 'r' %}" id="current_caffeine">{% users_current_caffeine %}</span>mg.</p>
+    {% endif %}
     </header>
+    <main>
     {% block body %}{% endblock %}
-    </section>
-
+    </main>
+    </section><!-- layout__window -->
+    {% if user.is_authenticated %}
     <nav class="menu">
       <button data-ct-ui-menu-control class="btn menu__control menu__control--without-menu menu--slide">menu</button>
       <div class="menu__body menu--slide">
         <button data-ct-ui-menu-control class="menu__control menu__control menu__control--within-menu">hide menu</button>
-        <h2>Items</h2>
+        <ul class="menu__items">
+          <a href="{% url 'overview' %}"><li class="menu__item">Overview</li></a>
+        </ul>
+        <h2 class="menu__header">Items</h2>
         <ul class="menu__items">
           <a href="{% url 'add_record' %}"><li class="menu__item">Add</li></a>
           <a href="{% url 'view_records' %}"><li class="menu__item">View recent</li></a>
         </ul>
-        <h2>Events</h2>
+        <h2 class="menu__header">Events</h2>
         <ul class="menu__items">
           <a href="{% url 'add_event' %}"><li class="menu__item">Add</li></a>
           <a href="{% url 'view_events' %}"><li class="menu__item">View recent</li></a>
         </ul>
       </div>
     </nav>
+    {% endif %}
   </div></div>
 <script>
 (function () {

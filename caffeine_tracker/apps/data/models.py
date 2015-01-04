@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+from .utils import _amount_at_time
+
 class Record(models.Model):
     time = models.DateTimeField(default=datetime.now)
     description = models.CharField(max_length=255)
@@ -16,6 +18,9 @@ class Record(models.Model):
 
     class Meta:
         ordering = ['-time']
+
+    def caffeine_remaining(self):
+        return _amount_at_time(self.caffeine, self.time.timestamp(), datetime.now().timestamp())
 
 
 class Item(models.Model):
