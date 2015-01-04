@@ -66,12 +66,12 @@ if ('querySelector' in document && 'addEventListener' in window  && ("classList"
         <ul class="menu__items">
           <a href="{% url 'overview' %}"><li class="menu__item">Overview</li></a>
         </ul>
-        <h2 class="menu__header">Items</h2>
+        <h2 class="menu__header">Intake</h2>
         <ul class="menu__items">
           <a href="{% url 'add_record' %}"><li class="menu__item">Add</li></a>
           <a href="{% url 'view_records' %}"><li class="menu__item">View recent</li></a>
         </ul>
-        <h2 class="menu__header">Events</h2>
+        <h2 class="menu__header">Notes</h2><!-- TODO make expander -->
         <ul class="menu__items">
           <a href="{% url 'add_event' %}"><li class="menu__item">Add</li></a>
           <a href="{% url 'view_events' %}"><li class="menu__item">View recent</li></a>

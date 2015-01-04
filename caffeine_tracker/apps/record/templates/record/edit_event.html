@@ -17,7 +17,7 @@
     {% endfor %}
 </ul>
 {% endif %}
-<h1>Event</h1>
+<h1>Note</h1>
 
 <form action="{{ request.get_full_path }}" method="post" class="{% if advanced_form %}js__hide{% endif %}" id="record-form">
     {% csrf_token %}
