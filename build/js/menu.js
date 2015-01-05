@@ -10,8 +10,15 @@ define(function (require, exports, module) {
     });
   };
 
+  var toggleSubMenu = function() {
+    $(document).on('click', '[data-ct-ui-submenu-control]', function() {
+      $(this).parents('[data-ct-ui-submenu]').toggleClass('menu__sub-menu--open');
+    });
+  };
+
   module.exports.ready = function() {
     toggleMenu();
+    toggleSubMenu();
   };
 
 });

@@ -71,11 +71,13 @@ if ('querySelector' in document && 'addEventListener' in window  && ("classList"
           <a href="{% url 'add_record' %}"><li class="menu__item">Add</li></a>
           <a href="{% url 'view_records' %}"><li class="menu__item">View recent</li></a>
         </ul>
-        <h2 class="menu__header">Notes</h2><!-- TODO make expander -->
-        <ul class="menu__items">
-          <a href="{% url 'add_event' %}"><li class="menu__item">Add</li></a>
-          <a href="{% url 'view_events' %}"><li class="menu__item">View recent</li></a>
-        </ul>
+        <div class="menu__sub-menu" data-ct-ui-submenu>
+          <h2 class="menu__header" data-ct-ui-submenu-control>Notes</h2><!-- TODO make expander -->
+          <ul class="menu__items">
+            <a href="{% url 'add_event' %}"><li class="menu__item">Add</li></a>
+            <a href="{% url 'view_events' %}"><li class="menu__item">View recent</li></a>
+          </ul>
+        </div>
       </div>
     </nav>
     {% endif %}

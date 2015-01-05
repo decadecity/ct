@@ -39,6 +39,15 @@ define(function(require) {
         $('#menu-control').trigger('click');
         strictEqual(body.hasClass('menu--open'), false, 'Body class removed');
       });
+
+      test('toggleSubMenu', function() {
+        var submenu = $('#submenu');
+        strictEqual(submenu.hasClass('menu__sub-menu--open'), false, 'Initial state');
+        $('#submenu-control').trigger('click');
+        strictEqual(submenu.hasClass('menu__sub-menu--open'), true, 'Submenu class triggered');
+        $('#submenu-control').trigger('click');
+        strictEqual(submenu.hasClass('menu__sub-menu--open'), false, 'Submenu class removed');
+      });
     }
   };
 });

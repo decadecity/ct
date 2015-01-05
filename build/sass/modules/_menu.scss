@@ -8,6 +8,11 @@ $menu-without-width: 6em;
   right: 0;
 }
 
+.menu__remainder {
+  margin-right: $menu-without-width + 1em;
+}
+
+
 .menu--slide {
   transition: right 0.5s ease;
 }
@@ -94,6 +99,10 @@ $menu-without-width: 6em;
   border: 0;
 }
 
-.menu__remainder {
-  margin-right: $menu-without-width + 1em;
+.js .menu__sub-menu .menu__items {
+  display: none;
+}
+
+.js .menu__sub-menu--open .menu__items {
+  display: block;
 }
