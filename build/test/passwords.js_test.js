@@ -36,6 +36,8 @@ define(function(require) {
         strictEqual($('#other-password').attr('type'), 'text', 'Set type to text');
         var control = $('#test-form').find('input[type=checkbox]');
         strictEqual(control.length, 1, 'Added control');
+        var control1 = $('#non-password-form').find('input[type=checkbox]');
+        strictEqual(control1.length, 0, 'Didn\'t Add control');
         control.trigger('click');
         strictEqual($('#test-password').attr('type'), 'password', 'Set type back to password');
         strictEqual($('#test-text').attr('type'), 'text', 'Didn\'t alter text field');

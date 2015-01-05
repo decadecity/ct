@@ -20,7 +20,9 @@ define(function (require, exports, module) {
   };
 
   var setControls = function(form) {
-    $(form).append('<p><label>Show passwords<input type="checkbox" data-dc-ui-password-show checked/></p>');
+    if ($(form).find('input[type=password]').length) {
+      $(form).append('<p><label>Show passwords<input type="checkbox" data-dc-ui-password-show checked/></p>');
+    }
   };
 
   var toggleReveal = function() {
