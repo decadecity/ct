@@ -33,11 +33,24 @@ define(function(require) {
       });
 
       test('getStartData', function() {
-        var expected = {
-          'date': new Date('Thu, 25 Dec 2014 22:20:45 +0000'),
+        //TODO: move to setup.
+        caffeine_content.setBaseDate(new Date($('#base-date').text()));
+
+        var expected_start = {
+          'date': new Date('Thu, 25 Dec 2014 01:00:00 +0000'),
+          'amount': 12
+        };
+        var expected_other = {
+          'date': new Date('Thu, 25 Dec 2014 07:00:00 +0000'),
           'amount': 13
         };
-        deepEqual(caffeine_content.getStartData(), expected, 'Got start data');
+        caffeine_content.initialiseData();
+        deepEqual($('#current_caffeine').data('ct-data-caffeine-parsed'), expected_start, 'Got start data');
+        deepEqual($('#other_caffeine').data('ct-data-caffeine-parsed'), expected_other, 'Got other data');
+
+        caffeine_content.setCurrent();
+        strictEqual($('#current_caffeine').text(), '6', 'Start data halved');
+        strictEqual($('#other_caffeine').text(), '13', 'Other data stayed the same');
       });
     }
   };
