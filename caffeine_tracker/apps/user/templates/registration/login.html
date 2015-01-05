@@ -10,9 +10,11 @@
   {% csrf_token %}
   {{ form.as_p }}
 
-  <input type="submit" value="login" />
+  <input type="submit" value="login" class="btn"/>
   <input type="hidden" name="next" value="{{ next }}" />
 </form>
+
+<p>Don't have an account? <a href="{% url 'register' %}">Register now.</a></p>
 
 <footer>
   <p>In case you are hard of understanding and didn't understand the point of this site: it tracks you using cookies and other related technologies.</p>

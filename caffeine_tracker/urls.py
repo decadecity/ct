@@ -24,8 +24,10 @@ urlpatterns = patterns('',
 
     url(r'^overview', 'caffeine_tracker.apps.record.views.overview', name='overview'),
 
-    url(r'^accounts/login/$', 'django.contrib.auth.views.login', name='login'),
-    url(r'^accounts/logout/$', 'caffeine_tracker.apps.user.views.logout', name='logout'),
+    url(r'^login$', 'django.contrib.auth.views.login', name='login'),
+    url(r'^logout$', 'caffeine_tracker.apps.user.views.logout', name='logout'),
+    url(r'^profile$', 'caffeine_tracker.apps.user.views.profile', name='profile'),
+    url(r'^start$', 'caffeine_tracker.apps.user.views.register', name='register'),
 )
 
 # Serializers define the API representation.

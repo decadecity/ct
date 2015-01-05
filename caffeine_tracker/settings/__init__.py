@@ -41,6 +41,7 @@ INSTALLED_APPS = (
 
     'caffeine_tracker.apps.data',
     'caffeine_tracker.apps.record',
+    'caffeine_tracker.apps.user',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -141,6 +142,10 @@ INLINE_CSS = True
 OFFLINE = False
 
 CAFFEINE_HALF_LIFE = 60 * 60 * 6 # 6 hours.
+
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
+LOGIN_REDIRECT_URL = 'home'
 
 try:
     from .local import *

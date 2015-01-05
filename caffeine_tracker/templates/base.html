@@ -72,10 +72,17 @@ if ('querySelector' in document && 'addEventListener' in window  && ("classList"
           <a href="{% url 'view_records' %}"><li class="menu__item">View recent</li></a>
         </ul>
         <div class="menu__sub-menu" data-ct-ui-submenu>
-          <h2 class="menu__header" data-ct-ui-submenu-control>Notes</h2><!-- TODO make expander -->
+          <h2 class="menu__header" data-ct-ui-submenu-control>Notes</h2>
           <ul class="menu__items menu--slide">
             <a href="{% url 'add_event' %}"><li class="menu__item">Add</li></a>
             <a href="{% url 'view_events' %}"><li class="menu__item">View recent</li></a>
+          </ul>
+        </div>
+        <div class="menu__sub-menu" data-ct-ui-submenu>
+          <h2 class="menu__header" data-ct-ui-submenu-control>Account</h2>
+          <ul class="menu__items menu--slide">
+            <a href="{% url 'profile' %}"><li class="menu__item">Profile</li></a>
+            <a href="{% url 'logout' %}"><li class="menu__item">Logout</li></a>
           </ul>
         </div>
       </div>
