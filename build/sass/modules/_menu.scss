@@ -14,7 +14,7 @@ $menu-without-width: 6em;
 
 
 .menu--slide {
-  transition: right, max-height 0.5s ease;
+  transition: right 0.5s ease, max-height 0.5s ease;
 }
 
 .menu__body {
@@ -25,9 +25,10 @@ $menu-without-width: 6em;
     width: $menu-width;
     height: 100vh;
     padding: 0;
-    border-left: 0.0625em solid $dark;
+    //border-left: 0.0625em solid $dark;
     background-color: $orange;
     color: $lightest;
+    box-shadow: -0.25em 0 0.5em $shadow;
   }
 }
 
