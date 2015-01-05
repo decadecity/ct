@@ -12,6 +12,10 @@
 
   <!-- Load in require -->
   <script src="../lib/require/require.js"></script>
+
+  <!-- Load in sinnon timers
+  <script src="../lib/sinon/sinon-timers.js"></script>-->
+
   <!-- Removing access to jQuery and $. But it'll still be available as _$ -->
   <script>window._$ = jQuery.noConflict(true);</script>
 
@@ -37,7 +41,8 @@ require.config({
       // Also, the path should NOT include
       // the '.js' file extension.
       config: '../etc/config',
-      jquery: '../lib/jquery/jquery'
+      jquery: '../lib/jquery/jquery',
+      sinon: '../lib/sinon/sinon'
   }
 });
 

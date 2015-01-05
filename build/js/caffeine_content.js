@@ -5,8 +5,6 @@ define(function (require, exports, module) {
   var $ = require('jquery'),
       config = require('config');
 
-  var base_date = null;
-
   var amountAtTime = function(start_value, start_time, current_time) {
     var half_lives = (current_time - start_time) / parseFloat(1000 * 60 * 60 * 6);
     return Math.round(start_value * Math.pow(0.5, half_lives));
@@ -20,7 +18,7 @@ define(function (require, exports, module) {
   };
 
   var setCurrent = function() {
-    var now = base_date || /* istanbul ignore next default */ new Date();
+    var now = new Date();
     $('[data-ct-ui-caffeine-content]').each(function() {
       var data = $(this).data('ct-data-caffeine-parsed');
       $(this).text(amountAtTime(data.amount, data.date, now));
@@ -47,9 +45,6 @@ define(function (require, exports, module) {
     module.exports.amountAtTime = amountAtTime;
     module.exports.initialiseData = initialiseData;
     module.exports.setCurrent = setCurrent;
-    module.exports.setBaseDate = function(date) {
-      base_date = date;
-    };
   }
 
 });

@@ -21,20 +21,27 @@
 define(function(require) {
   "use strict";
 
-  var caffeine_content = require('caffeine_content');
+  var caffeine_content = require('caffeine_content'),
+      sinon = require('sinon');
 
   return {
     runTests: function() {
+      var clock;
 
-      module('Caffeine content');
+      module('Caffeine content', {
+        beforeEach: function() {
+          clock = sinon.useFakeTimers(+(new Date($('#base-date').text())));
+        },
+        afterEach: function() {
+          clock = sinon.restore();
+        }
+      });
 
       test('amountAtTime', function() {
         strictEqual(caffeine_content.amountAtTime(100, 0, 1000 * 60 * 60 * 6), 50, 'One half life');
       });
 
       test('getStartData', function() {
-        //TODO: move to setup.
-        caffeine_content.setBaseDate(new Date($('#base-date').text()));
 
         var expected_start = {
           'date': new Date('Thu, 25 Dec 2014 01:00:00 +0000'),
@@ -44,6 +51,7 @@ define(function(require) {
           'date': new Date('Thu, 25 Dec 2014 07:00:00 +0000'),
           'amount': 13
         };
+
         caffeine_content.initialiseData();
         deepEqual($('#current_caffeine').data('ct-data-caffeine-parsed'), expected_start, 'Got start data');
         deepEqual($('#other_caffeine').data('ct-data-caffeine-parsed'), expected_other, 'Got other data');
