@@ -14,7 +14,7 @@ $menu-without-width: 6em;
 
 
 .menu--slide {
-  transition: right 0.5s ease;
+  transition: right, max-height 0.5s ease;
 }
 
 .menu__body {
@@ -39,6 +39,7 @@ $menu-without-width: 6em;
 .menu__header {
   margin: 0;
   padding: 0;
+  padding-left: 0.5em;
   font-size: 1em;
 }
 
@@ -99,10 +100,28 @@ $menu-without-width: 6em;
   border: 0;
 }
 
-.js .menu__sub-menu .menu__items {
-  display: none;
+.js .menu__sub-menu {
+  .menu__header {
+    cursor: pointer;
+
+    &:after {
+      padding-left: 1em;
+      content: '▼';
+    }
+  }
+
+  .menu__items {
+    max-height: 0;
+    overflow: hidden;
+  }
 }
 
-.js .menu__sub-menu--open .menu__items {
-  display: block;
+.js .menu__sub-menu--open {
+  .menu__header:after {
+    content: '▲';
+  }
+
+  .menu__items {
+    max-height: 5.5em; // TODO - unhack.
+  }
 }
