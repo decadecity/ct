@@ -1,18 +1,10 @@
 from datetime import datetime
 
+from django.contrib.auth.models import User
 from django.test import Client, TestCase
 
 from caffeine_tracker.apps.data.models import Record, Item
 
-"""
-c = Client()
-response = c.post('/login/', {'username': 'john', 'password': 'smith'})
-
-c = Client()
-c.login(username='fred', password='secret')
-"""
-
-from django.contrib.auth.models import User
 
 class RecordTestCase(TestCase):
     def setUp(self):
