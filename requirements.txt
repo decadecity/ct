@@ -4,3 +4,4 @@ django-filter==0.8
 djangorestframework==2.4.3
 gunicorn==19.1.1
 simplejson==3.6.5
+python3-memcached==1.51
