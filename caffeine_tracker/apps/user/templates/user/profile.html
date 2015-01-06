@@ -10,18 +10,18 @@
 </ul>
 {% endif %}
 
-<form method="post" action="{{request.path}}?type=password">
+<form class="django-form" method="post" action="{{request.path}}?type=password">
   {% csrf_token %}
   {{ password_form.as_p }}
 
-  <input type="submit" value="Change" />
+  <input class="btn" type="submit" value="Change" />
 </form>
 {% comment %}
-<form method="post" action="{{request.path}}?type=details">
+<form class="django-form" method="post" action="{{request.path}}?type=details">
   {% csrf_token %}
   {{ user_form.as_p }}
 
-  <input type="submit" value="Change" />
+  <input class="btn" type="submit" value="Change" />
 </form>
 {% endcomment %}
 

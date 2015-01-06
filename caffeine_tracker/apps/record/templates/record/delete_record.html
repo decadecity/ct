@@ -13,10 +13,10 @@
 {% endif %}
 
 <h1>Are you sure you want to delete this item?</h1>
-<form action="{{ request.get_full_path }}" method="post">
+<form class="django-form" action="{{ request.get_full_path }}" method="post">
     {% csrf_token %}
     <p>{{ record.description }} at {{ record.time }} [{{ record.caffeine }}mg caffeine]</p>
-    <input type="submit" value="Delete" />
+    <input class="btn" type="submit" value="Delete" />
 </form>
 
 

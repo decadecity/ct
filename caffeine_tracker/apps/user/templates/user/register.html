@@ -11,11 +11,11 @@
 {% endif %}
 
 
-<form method="post" action="{{request.path}}">
+<form class="django-form" method="post" action="{{request.path}}">
   {% csrf_token %}
   {{ form.as_p }}
 
-  <input type="submit" value="Register" />
+  <input class="btn" type="submit" value="Register" />
 </form>
 
 {% endblock %}
