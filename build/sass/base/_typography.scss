@@ -2,7 +2,19 @@ body {
   background-color: $dark;
   color: $background;
   font-family: sans-serif;
-  font-size: 125%;
+  font-size: 100%;
+}
+
+@media (max-width:13.75em) { //220px - very small screens.
+  body {
+    font-size: 75%;
+  }
+}
+
+@media (min-width:28.125em) {
+  body {
+    font-size: 125%;
+  }
 }
 
 a {

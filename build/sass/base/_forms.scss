@@ -1,6 +1,7 @@
 input[type=text],
 input[type=passowrd],
 input[type=number] {
+  max-width: 100%;
   border: 1px solid $dark;
   border-radius: 0;
 }
