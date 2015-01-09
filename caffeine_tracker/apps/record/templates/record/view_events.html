@@ -19,17 +19,17 @@
 <div class="table-wrap">
   <table class="recorded-items data-table stacked-table">
   <thead>
-    <tr><th>Description</th><th>Time</th>{% comment %}<th></th>{% endcomment %}</tr>
+    <tr><th>Description</th><th>Time</th><th></th></tr>
   </thead>
   <tbody class="zebra">
   {% for event in events %}
     <tr class="recorded-items__item">
       <td data-ct-table-title="Description">{{ event.description }}</td>
       <td data-ct-table-title="Time">{{ event.time }}</td>
-      {% comment %}<td>
-        <a class="btn" href="{% url 'edit_record' %}?id={{ event.pk }}">Edit</a>
-        <a class="btn" href="{% url 'delete_record' %}?id={{ event.pk }}">Delete</a>
-      </td>{% endcomment %}
+      <td>
+        <a class="btn" href="{% url 'edit_event' %}?id={{ event.pk }}">Edit</a>
+        <a class="btn" href="{% url 'delete_event' %}?id={{ event.pk }}">Delete</a>
+      </td>
     </tr>
   {% endfor %}
   </tbody>

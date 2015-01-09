@@ -19,7 +19,7 @@
 {% endif %}
 <h1>Intake</h1>
 
-<form class="django-form" action="{{ request.get_full_path }}" method="post" class="{% if advanced_form %}js__hide{% endif %}" id="record-form">
+<form action="{{ request.get_full_path }}" method="post" class="django-form {% if advanced_form %}js__hide{% endif %}" id="record-form">
     {% csrf_token %}
     {{ form.as_p }}
     <input class="btn" type="submit" value="Save" />

@@ -18,8 +18,8 @@ urlpatterns = patterns('',
     url(r'^view/items', 'caffeine_tracker.apps.record.views.view_items', name='view_records'),
 
     url(r'^record/event', 'caffeine_tracker.apps.record.views.new_event', name='add_event'),
-    #url(r'^edit/event', 'caffeine_tracker.apps.record.views.edit_event', name='edit_event'),
-    #url(r'^delete/event', 'caffeine_tracker.apps.record.views.delete_event', name='delete_event'),
+    url(r'^edit/event', 'caffeine_tracker.apps.record.views.edit_event', name='edit_event'),
+    url(r'^delete/event', 'caffeine_tracker.apps.record.views.delete_event', name='delete_event'),
     url(r'^view/events', 'caffeine_tracker.apps.record.views.view_events', name='view_events'),
 
     url(r'^overview', 'caffeine_tracker.apps.record.views.overview', name='overview'),

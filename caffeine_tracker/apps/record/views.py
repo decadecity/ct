@@ -130,6 +130,48 @@ def new_event(request):
 
 
 @login_required
+def edit_event(request):
+
+    event_pk = request.GET.get('id', None)
+    event = get_object_or_404(Event, pk=event_pk)
+
+    if request.method == 'POST':
+        form = EventForm(request.POST, instance=event)
+        if not form.is_valid():
+            messages.error(request, 'There was a problem editing the note.')
+        else:
+            event = form.save()
+            messages.success(request, 'Note edited: %s at %s' % (event.description, event.time))
+            return HttpResponseGetAfterPost('%s#edited' % (request.get_full_path()))
+
+    else:
+        form = EventForm(instance=event)
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'record/edit_event.html', context)
+
+
+
+@login_required
+def delete_event(request):
+
+    event_pk = request.GET.get('id', None)
+    event = get_object_or_404(Event, pk=event_pk)
+
+    if request.method == 'POST':
+        event.delete()
+        messages.success(request, 'Item deleted: %s at %s' % (event.description, event.time))
+        return HttpResponseGetAfterPost('%s#deleted' % (reverse(view_events)))
+
+    context = {
+        'event': event,
+    }
+    return render(request, 'record/delete_event.html', context)
+
+
+@login_required
 def view_events(request):
     events = request.user.events.all()
 
