@@ -29,7 +29,7 @@ $menu-without-width: 6em;
     box-shadow: -0.25em 0 0.5em $shadow;
     overflow-y: auto;
     @media (min-width: $widest) {
-      right: 0 - $widest - 3em;
+      right: 0 - $widest - 3rem;
       width: $widest;
       height: auto;
     }
