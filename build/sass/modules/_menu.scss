@@ -1,4 +1,4 @@
-$menu-width: 10em;
+$menu-width: 10rem;
 $menu-without-width: 6em;
 
 
@@ -20,7 +20,7 @@ $menu-without-width: 6em;
   .js & {
     position: absolute;
     top: -0;
-    right: 0 - $menu-width - 3em; // Needs to be rem.
+    right: 0 - strip-units($menu-width) - 3rem; // Needs to be rem.
     width: $menu-width; // Needs to be rem.
     height: 100vh;
     padding: 0;
@@ -30,8 +30,8 @@ $menu-without-width: 6em;
     overflow-y: auto;
 
     @media (min-width: $widest) {
-      right: 0 - $widest - 3em; // Needs to be rem.
-      width: $widest;
+      right: 0 - strip-units($widest) - 0.0625em; // Needs to be rem.
+      width: strip-units($widest) * 1rem;
       height: auto;
     }
   }
