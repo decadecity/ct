@@ -4,7 +4,7 @@ body {
 }
 
 .layout__wrapper {
-  max-width: 55em;
+  max-width: $widest;
   height: 100vh;
   margin-right: auto;
   margin-left: auto;

@@ -63,27 +63,35 @@ if ('querySelector' in document && 'addEventListener' in window  && ("classList"
       <button data-ct-ui-menu-control class="btn menu__control menu__control--without-menu menu--slide">menu</button>
       <div class="menu__body menu--slide">
         <button data-ct-ui-menu-control class="menu__control menu__control menu__control--within-menu">hide menu</button>
-        <ul class="menu__items">
-          <a href="{% url 'overview' %}"><li class="menu__item">Overview</li></a>
-        </ul>
-        <h2 class="menu__header">Intake</h2>
-        <ul class="menu__items">
-          <a href="{% url 'add_record' %}"><li class="menu__item">Add</li></a>
-          <a href="{% url 'view_records' %}"><li class="menu__item">View recent</li></a>
-        </ul>
-        <div class="menu__sub-menu" data-ct-ui-submenu>
-          <h2 class="menu__header" data-ct-ui-submenu-control>Notes</h2>
-          <ul class="menu__items menu--slide">
-            <a href="{% url 'add_event' %}"><li class="menu__item">Add</li></a>
-            <a href="{% url 'view_events' %}"><li class="menu__item">View recent</li></a>
+        <div class="menu__section">
+          <ul class="menu__items">
+            <a href="{% url 'overview' %}"><li class="menu__item">Overview</li></a>
           </ul>
         </div>
-        <div class="menu__sub-menu" data-ct-ui-submenu>
-          <h2 class="menu__header" data-ct-ui-submenu-control>Account</h2>
-          <ul class="menu__items menu--slide">
-            <a href="{% url 'profile' %}"><li class="menu__item">Profile</li></a>
-            <a href="{% url 'logout' %}"><li class="menu__item">Logout</li></a>
+        <div class="menu__section">
+          <h2 class="menu__header">Intake</h2>
+          <ul class="menu__items">
+            <a href="{% url 'add_record' %}"><li class="menu__item">Add</li></a>
+            <a href="{% url 'view_records' %}"><li class="menu__item">View recent</li></a>
           </ul>
+        </div>
+        <div class="menu__section">
+          <div class="menu__sub-menu" data-ct-ui-submenu>
+            <h2 class="menu__header" data-ct-ui-submenu-control>Notes</h2>
+            <ul class="menu__items menu--slide">
+              <a href="{% url 'add_event' %}"><li class="menu__item">Add</li></a>
+              <a href="{% url 'view_events' %}"><li class="menu__item">View recent</li></a>
+            </ul>
+          </div>
+        </div>
+        <div class="menu__section">
+          <div class="menu__sub-menu" data-ct-ui-submenu>
+            <h2 class="menu__header" data-ct-ui-submenu-control>Account</h2>
+            <ul class="menu__items menu--slide">
+              <a href="{% url 'profile' %}"><li class="menu__item">Profile</li></a>
+              <a href="{% url 'logout' %}"><li class="menu__item">Logout</li></a>
+            </ul>
+          </div>
         </div>
       </div>
     </nav>

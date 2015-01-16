@@ -12,7 +12,6 @@ $menu-without-width: 6em;
   margin-right: $menu-without-width + 1em;
 }
 
-
 .menu--slide {
   transition: right 0.5s ease, max-height 0.5s ease;
 }
@@ -29,18 +28,30 @@ $menu-without-width: 6em;
     color: $lightest;
     box-shadow: -0.25em 0 0.5em $shadow;
     overflow-y: auto;
+    @media (min-width: $widest) {
+      right: 0 - $widest - 3em;
+      width: $widest;
+      height: auto;
+    }
   }
 }
 
 .js .menu--open .menu__body {
   display: block;
   right: -0.5em;
+  @media (min-width: $widest) {
+    right: -1em; // HACK
+  }
 }
 
 .menu__header {
   margin: 0;
   padding: 0.5em;
   font-size: 1em;
+  @media (min-width: $widest) {
+    width: 8em;
+    float: left;
+  }
 }
 
 .menu__items {
@@ -53,12 +64,25 @@ $menu-without-width: 6em;
   }
 }
 
+.menu__section {
+  @media (min-width: $widest) {
+    clear: left;
+  }
+}
+
 .menu__item {
   margin-bottom: 0.25em;
   padding: 0.5em;
   background-color: $lightest;
   color: $orange;
   list-style-type: none;
+  // TODO: flexbox
+  @media (min-width: $widest) {
+    min-width: 8em;
+    margin-right: 1em;
+    float: left;
+    text-align: center;
+  }
 
   &:hover {
     box-shadow: inset 2px 2px 2px $orange;
@@ -98,27 +122,38 @@ $menu-without-width: 6em;
   margin-top: 0;
   margin-bottom: 0.25em;
   border: 0;
+  @media (min-width: $widest) {
+    width: 10em;
+    float: right;
+  }
 }
 
 .js .menu__sub-menu {
   .menu__header {
     cursor: pointer;
 
-    &:after {
-      padding-left: 1em;
-      content: '▼';
+    @media (max-width: $widest) {
+      &:after {
+        padding-left: 1em;
+        content: '▼';
+      }
     }
   }
 
-  .menu__items {
-    max-height: 0;
-    overflow: hidden;
+  @media (max-width: $widest) {
+    .menu__items {
+      max-height: 0;
+      overflow: hidden;
+    }
   }
 }
 
 .js .menu__sub-menu--open {
-  .menu__header:after {
-    content: '▲';
+
+  @media (max-width: $widest) {
+    .menu__header:after {
+      content: '▲';
+    }
   }
 
   .menu__items {
