@@ -28,6 +28,7 @@ $menu-without-width: 6em;
     color: $lightest;
     box-shadow: -0.25em 0 0.5em $shadow;
     overflow-y: auto;
+
     @media (min-width: $widest) {
       right: 0 - $widest - 3em; // Needs to be rem.
       width: $widest;
@@ -40,6 +41,7 @@ $menu-without-width: 6em;
   .menu__body {
     display: block;
     right: -0.5em; // Needs to be rem.
+
     @media (min-width: $widest) {
       right: -1em; // HACK // Needs to be rem.
     }
@@ -54,6 +56,7 @@ $menu-without-width: 6em;
   margin: 0;
   padding: 0.5em;
   font-size: 1em;
+
   @media (min-width: $widest) {
     width: 8em;
     float: left;
@@ -83,6 +86,7 @@ $menu-without-width: 6em;
   color: $orange;
   list-style-type: none;
   // TODO: flexbox
+
   @media (min-width: $widest) {
     min-width: 8em;
     margin-right: 1em;
@@ -128,6 +132,7 @@ $menu-without-width: 6em;
   margin-top: 0;
   margin-bottom: 0.25em;
   border: 0;
+
   @media (min-width: $widest) {
     width: 10em;
     float: right;
@@ -146,8 +151,8 @@ $menu-without-width: 6em;
     }
   }
 
-  @media (max-width: $widest) {
-    .menu__items {
+  .menu__items {
+    @media (max-width: $widest) {
       max-height: 0;
       overflow: hidden;
     }
