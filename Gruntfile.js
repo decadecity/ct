@@ -159,7 +159,8 @@ module.exports = function(grunt) {
     scsslint: {
       files: [
         'build/sass/head.scss',
-        'build/sass/**/*.scss'
+        'build/sass/**/*.scss',
+        '!build/sass/tools/_rem.scss'
       ],
       options: {
         colorizeOutput: true,

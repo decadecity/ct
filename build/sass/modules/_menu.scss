@@ -20,8 +20,8 @@ $menu-without-width: 6em;
   .js & {
     position: absolute;
     top: -0;
-    right: 0 - $menu-width - 3em;
-    width: $menu-width;
+    right: 0 - $menu-width - 3em; // Needs to be rem.
+    width: $menu-width; // Needs to be rem.
     height: 100vh;
     padding: 0;
     background-color: $orange;
@@ -29,18 +29,24 @@ $menu-without-width: 6em;
     box-shadow: -0.25em 0 0.5em $shadow;
     overflow-y: auto;
     @media (min-width: $widest) {
-      right: 0 - $widest - 3rem;
+      right: 0 - $widest - 3em; // Needs to be rem.
       width: $widest;
       height: auto;
     }
   }
 }
 
-.js .menu--open .menu__body {
-  display: block;
-  right: -0.5em;
-  @media (min-width: $widest) {
-    right: -1em; // HACK
+.js .menu--open {
+  .menu__body {
+    display: block;
+    right: -0.5em; // Needs to be rem.
+    @media (min-width: $widest) {
+      right: -1em; // HACK // Needs to be rem.
+    }
+  }
+
+  .layout__window {
+    opacity: 0.25;
   }
 }
 
