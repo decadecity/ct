@@ -3,6 +3,8 @@
 }
 
 .data-table {
+  width: 100%;
+  max-width: 40em;
   border-collapse: collapse;
 
   tr, td, th, thead {
@@ -24,6 +26,16 @@
     padding-right: 0.5em;
     padding-left: 0.5em;
     border-width: 0;
+  }
+
+  th {
+    text-align: center;
+  }
+
+  td {
+    @media (min-width:  30em) {
+      text-align: center;
+    }
   }
 
 }
