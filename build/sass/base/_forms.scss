@@ -1,12 +1,5 @@
 input[type=text],
 input[type=passowrd],
-input[type=number] {
-  max-width: 100%;
-}
-
-
-input[type=text],
-input[type=passowrd],
 input[type=date],
 input[type=number],
 select {
@@ -21,10 +14,15 @@ select {
   border-radius: 0;
   border-color: $dark;
   background-color: transparent;
+  font-size: 1em;
 }
 
 input[type=number] {
   max-width: 3em;
+}
+
+input[type=date] {
+  width: 10em;
 }
 
 option:first-of-type {

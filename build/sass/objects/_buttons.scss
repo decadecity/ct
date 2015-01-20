@@ -2,19 +2,20 @@
   display: inline-block;
   margin-bottom: 0.5em;
   padding: 0.25em 0.5em;
-  border: 0.0625em solid $dark;
-  border-radius: 0.125em;
+  border: 0.0625em solid $rich;
+  border-radius: 0.0625em;
   background-color: $rich;
   color: $lightest;
   text-decoration: none;
   //box-shadow: 1px 1px 1px $shadow;
 
-  &:hover {
+  &:hover, &:active {
+    border-color: $dark;
     color: $lighter;
     box-shadow: none;
   }
 
   &:active {
-    box-shadow: -1px -1px 1px $shadow;
+    box-shadow: -0.0625px -0.0625px 0.0625px $shadow;
   }
 }
