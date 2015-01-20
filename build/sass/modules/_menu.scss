@@ -40,10 +40,10 @@ $menu-without-width: 6em;
 .js .menu--open {
   .menu__body {
     display: block;
-    right: -0.5em; // Needs to be rem.
+    right: -0.5rem;
 
     @media (min-width: $widest) {
-      right: -1em; // HACK // Needs to be rem.
+      right: -1rem; // HACK
     }
   }
 

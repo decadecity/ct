@@ -5,27 +5,25 @@
 .data-table {
   border-collapse: collapse;
 
-  tr, td, th {
+  tr, td, th, thead {
     margin: 0;
     padding: 0;
+    border-width: 0;
+    border-style: solid;
+    border-color: $dark;
+  }
+
+  thead {
+    border-bottom-width: 0.0625em;
+    border-style: solid;
+    border-color: $dark;
   }
 
   td, th {
-    padding: 0.25em;
+    padding: 1em;
     padding-right: 0.5em;
     padding-left: 0.5em;
     border-width: 0;
-    border-top-width: 1px;
-    border-style: solid;
-    border-color: $dark;
-
-    &:first-of-type {
-      border-left-width: 1px;
-    }
-
-    &:last-of-type {
-      border-right-width: 1px;
-    }
   }
 
 }

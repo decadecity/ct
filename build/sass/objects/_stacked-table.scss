@@ -13,10 +13,10 @@
 
     th, td {
       display: block;
-      border-top-width: 0;
-      border-right-width: 1px;
-      border-bottom-width: 0;
-      border-left-width: 1px;
+      border-width: 0;
+      border-right-width: 0.0625em;
+      border-left-width: 0.0625em;
+
 
       &[data-ct-table-title]::before {
         font-weight: bold;
@@ -24,11 +24,11 @@
       }
 
       &:first-of-type {
-        border-top-width: 1px;
+        border-top-width: 0.0625em;
       }
 
       &:last-of-type {
-        border-bottom-width: 1px;
+        border-bottom-width: 0.0625em;
       }
     }
   }
