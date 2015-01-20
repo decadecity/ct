@@ -8,7 +8,8 @@ input[type=number] {
 input[type=text],
 input[type=passowrd],
 input[type=date],
-input[type=number] {
+input[type=number],
+select {
   width: 100%;
   max-width: 30em;
   margin-top: 0.5em;
@@ -19,4 +20,13 @@ input[type=number] {
   border-style: solid;
   border-radius: 0;
   border-color: $dark;
+  background-color: transparent;
+}
+
+input[type=number] {
+  max-width: 3em;
+}
+
+option:first-of-type {
+  color: $orange;
 }
