@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="css/head.css"/>
+    <script src="js/require.js"/></script>
+    <script>
+require.config({
+  baseUrl: './js/',
+  paths: {
+      // the left side is the module ID,
+      // the right side is the path to
+      // the jQuery file, relative to baseUrl.
+      // Also, the path should NOT include
+      // the '.js' file extension.
+      config: './etc/config',
+  }
+});
+    </script>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <style>@ms-viewport, @viewport { width: device-width !important; }</style>
+
+    <link rel="dns-prefetch" href="//stats.decadecity.net"/>
+
+    <title>Caffeine Tracker</title>
+    <!--<meta name="" content=""/>-->
+    <script>
+window.CAFFEINE_TRACKER = {
+  'config': {
+    'cache_buster': 'none', // Passing the cache buster from the server to the client.
+    'ctm': false, // Have we cut the mustard?
+    'static_path': '', // Passing the path to static content from the server to the client.
+  },
+  'loading': {
+    'loading': false
+  }
+};
+if ('querySelector' in document && 'addEventListener' in window  && ("classList" in document.createElement("_")) && Object.prototype.toString.call(window.operamini) !== "[object OperaMini]") {
+  // Remember that we have cut the mustard to save checking again in the future.
+  window.CAFFEINE_TRACKER.config.ctm = true;
+  // CSS hook to allow styling for an initial state when JS is enabled: http://decadecity.net/blog/2013/07/30/coping-without-javascript#css
+  document.querySelector('html').classList.add('js', 'js--loading');
+  window.CAFFEINE_TRACKER.loading.loading = true;
+  window.CAFFEINE_TRACKER.loading.timeout = setTimeout(function() {
+    window.CAFFEINE_TRACKER.loading.loading = false;
+    document.querySelector('html').classList.remove('js--loading', 'js');
+  }, 5000);
+}
+    </script>
+  </head>
+  <body>
+  <div class="layout__wrapper"><div class="layout__innerwrapper">
+    <section class="layout__window">
+    <header>
+      <!-- strapline -->
+    </header>
+    <main>
+    <!-- body -->
+    </main>
+    </section><!-- layout__window -->
+    <!-- menu -->
+  </div></div>
+
+
+  </body>
+</html>

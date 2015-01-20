@@ -1,0 +1,3 @@
+{{#if user.is_authenticated }}
+  <p class="menu__remainder">Hello {{ user.first_name }}, your estimated caffeine content is <span data-ct-timestamp-now="{{ now }}" id="current_caffeine">{{ user.current_caffeine }}</span>mg.</p>
+{{/if }}

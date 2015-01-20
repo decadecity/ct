@@ -33,7 +33,22 @@ module.exports = function(grunt) {
      */
     clean: {
       css: ['build/dist/css'],
-      js: ['build/dist/js']
+      js: ['build/dist/js'],
+      app: ['phonegap/**/*']
+    },
+
+    /**
+     * Copy files.
+     */
+    copy: {
+      app: {
+        files: [
+          { expand: true, src: ['require.js'], cwd: 'build/lib/require/', dest: 'phonegap/js/' },
+          { expand: true, src: ['app.js*'], cwd: 'build/dist/js/', dest: 'phonegap/js/' },
+          { expand: true, src: ['*.css'], cwd: 'build/dist/css/', dest: 'phonegap/css/' },
+          { expand: true, src: ['**/*.html'], cwd: 'build/templates/', dest: 'phonegap/' }
+        ]
+      }
     },
 
     /**
@@ -52,6 +67,23 @@ module.exports = function(grunt) {
           dest: 'build/dist/css/',
           ext: '.min.css'
         }]
+      }
+    },
+
+    /**
+     * Handlebars is used for the app templates.
+     */
+    handlebars: {
+      compile: {
+        options: {
+          amd: 'templates',
+          processName: function(filePath) {
+            return filePath.replace('build/templates/', '');
+          }
+        },
+        files: {
+          'build/dist/js/templates.js': 'build/templates/**/**.hbs'
+        }
       }
     },
 
@@ -103,13 +135,13 @@ module.exports = function(grunt) {
      * final build for the browser.
      */
     requirejs: {
-      compile: {
+      web: {
         options: {
           // Entry point.
           include: 'main',
           insertRequire: ['main'],
           // Compilation target.
-          out: 'build/dist/js/main.js',
+          out: 'build/dist/js/web.js',
           // Where do we find the modules?
           baseUrl: 'build/js/',
           // Any other dependencies.
@@ -120,6 +152,27 @@ module.exports = function(grunt) {
           },
           // Start the build with almond.
           name: 'almond',
+          // Compilation options.
+          generateSourceMaps: true,
+          optimize: 'none',
+          wrap: true
+        }
+      },
+      app: {
+        options: {
+          // Entry point.
+          include: 'main',
+          insertRequire: ['main'],
+          // Compilation target.
+          out: 'build/dist/js/app.js',
+          // Where do we find the modules?
+          baseUrl: 'build/js/',
+          // Any other dependencies.
+          paths: {
+            jquery: '../lib/jquery/jquery',
+            config: '../etc/config'
+          },
+          name: 'main',
           // Compilation options.
           generateSourceMaps: true,
           optimize: 'none',
@@ -202,6 +255,11 @@ module.exports = function(grunt) {
         files: ['build/js/**/*.js'],
         tasks: ['clean:js', 'jshint:source', 'qunit', 'requirejs']
       },
+      // Templates
+      templates: {
+        files: ['build/templates/**/*.hbs', 'build/templates/**/*.html'],
+        tasks: ['handlebars', 'copy']
+      },
       // Unit tests.
       tests: {
         files: ['build/test/**/*_test.js'],
@@ -255,7 +313,9 @@ module.exports = function(grunt) {
   // Register the modules.
   grunt.loadNpmTasks('grunt-available-tasks');
   grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-handlebars');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-contrib-sass');
@@ -267,13 +327,13 @@ module.exports = function(grunt) {
 
   // Declare tasks
   // Group tasks for CSS and JS.
-  grunt.registerTask('css', ['clean:css', 'scsslint', 'sass', 'cssmin']);
+  grunt.registerTask('css', ['clean:css', 'scsslint', 'sass']);
   grunt.registerTask('js', ['clean:js', 'jshint', 'qunit', 'requirejs']);
   // Group task for minification
   grunt.registerTask('compress', ['uglify', 'cssmin']);
 
   // Build output.
-  grunt.registerTask('build', ['css', 'js', 'compress']);
+  grunt.registerTask('build', ['css', 'js', 'compress', 'copy']);
   // Set up tasks to work in dev.
   grunt.registerTask('dev', ['css', 'js', 'watch']);
   // Test runner suitable for CI.

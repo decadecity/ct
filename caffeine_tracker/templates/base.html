@@ -17,7 +17,7 @@
     {% endif %}
     <style>{% block styles %}{% endblock %}</style>
 
-    <link rel="prefetch" href="{% static 'js/main.min.js' %}?_={{ request.extra.CACHE_BUSTER }}"/>
+    <link rel="prefetch" href="{% static 'js/web.min.js' %}?_={{ request.extra.CACHE_BUSTER }}"/>
     <link rel="dns-prefetch" href="//stats.decadecity.net"/>
 
     <title>{% block title %}Caffeine Tracker{% endblock %}</title>
@@ -100,7 +100,7 @@ if ('querySelector' in document && 'addEventListener' in window  && ("classList"
 <script>
 (function () {
   // Use JavaScript to asynchronously insert the core JS functionality.
-  var s, s0, main_js = "{% if request.extra.DEBUG %}{% static 'js/main.js' %}{% else %}{% static 'js/main.min.js' %}{% endif %}?_={{ request.extra.CACHE_BUSTER }}";
+  var s, s0, main_js = "{% if request.extra.DEBUG %}{% static 'js/web.js' %}{% else %}{% static 'js/web.min.js' %}{% endif %}?_={{ request.extra.CACHE_BUSTER }}";
   if (window.CAFFEINE_TRACKER.config.ctm) {
     s = document.createElement('script');
     s.type = 'text/javascript';

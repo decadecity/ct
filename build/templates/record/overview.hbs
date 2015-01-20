@@ -1,0 +1,25 @@
+<h1>Overview</h1>
+{{#unless items}}
+  <p>There are no recorded items</p>
+{{else}}
+<div class="table-wrap">
+  <table class="recorded-items data-table stacked-table">
+    <thead>
+      <tr><th>What</th><th>When</th><th>Caffeine remaining (mg)</th></tr>
+    </thead>
+    <tbody class="zebra">
+    {{#each items}}
+      <tr class="recorded-items__item">
+        <td data-ct-table-title="What">{{ description }}</td>
+        <td data-ct-table-title="When">{{ time }}</td>
+        {{#if caffeine_remaining}}
+          <td data-ct-table-title="Cafffeine remaining (mg)">{{ caffeine_remaining }}</td>
+        {{else}}
+          <td></td>
+        {{/if}}
+      </tr>
+    {{/each}}
+    </tbody>
+  </table>
+</div>
+{{/unless}}

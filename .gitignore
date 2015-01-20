@@ -10,3 +10,6 @@ build/dist/*
 node_modules
 tmp
 report
+
+# Need to figure out how to make this work with phonegap build.
+phonegap/*
