@@ -8,16 +8,50 @@
 require.config({
   baseUrl: './js/',
   paths: {
-      // the left side is the module ID,
-      // the right side is the path to
-      // the jQuery file, relative to baseUrl.
-      // Also, the path should NOT include
-      // the '.js' file extension.
-      config: './etc/config',
+    // the left side is the module ID,
+    // the right side is the path to
+    // the file, relative to baseUrl.
+    // Also, the path should NOT include
+    // the '.js' file extension.
+    'handlebars.runtime': 'handlebars.runtime.amd'
   }
 });
 
+define('handlebars', ['handlebars.runtime'], function(Handlebars) {
+  return Handlebars.default;
+});
+
+define('config', function (require, exports, module) {
+  module.exports = {
+    // Prefix for data attributes.
+    'data_attribute_prefix': 'ct',
+    // Open up private methods for testing.
+    'debug': false
+  }
+});
+
+
 // Initialise app and inject menu template.
+
+define('app-init', function (require, exports, module) {
+  "use strict";
+
+  var templates = require('templates'),
+      $ = require('jquery');
+
+  var context = {
+    user: {
+      is_authenticated: true
+    }
+  };
+
+  $('#menu').html(templates.menu(context));
+
+  require('main');
+
+});
+
+require(['app-init']);
 
     </script>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
@@ -61,7 +95,7 @@ if ('querySelector' in document && 'addEventListener' in window  && ("classList"
     <!-- body -->
     </main>
     </section><!-- layout__window -->
-    <!-- menu -->
+    <div id="menu"></div>
   </div></div>
 
 

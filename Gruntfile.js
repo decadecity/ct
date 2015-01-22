@@ -44,8 +44,11 @@ module.exports = function(grunt) {
       app: {
         files: [
           { expand: true, src: ['require.js'], cwd: 'build/lib/require/', dest: 'phonegap/js/' },
-          { expand: true, src: ['app.js*'], cwd: 'build/dist/js/', dest: 'phonegap/js/' },
-          { expand: true, src: ['*.css'], cwd: 'build/dist/css/', dest: 'phonegap/css/' },
+          { expand: true, src: ['handlebars*.js'], cwd: 'build/lib/handlebars/', dest: 'phonegap/js/' },
+          { expand: true, src: ['jquery.js'], cwd: 'build/lib/jquery/', dest: 'phonegap/js/' },
+          { expand: true, src: ['**/*.js'], cwd: 'build/js/', dest: 'phonegap/js/' },
+          { expand: true, src: ['templates.js'], cwd: 'build/dist/js/', dest: 'phonegap/js/' },
+          { expand: true, src: ['*.css*'], cwd: 'build/dist/css/', dest: 'phonegap/css/' },
           { expand: true, src: ['**/*.html'], cwd: 'build/templates/', dest: 'phonegap/' }
         ]
       }
@@ -76,9 +79,11 @@ module.exports = function(grunt) {
     handlebars: {
       compile: {
         options: {
-          amd: 'templates',
+          amd: 'handlebars',
           processName: function(filePath) {
-            return filePath.replace('build/templates/', '');
+            filePath = filePath.replace('build/templates/', '');
+            filePath = filePath.replace('.hbs', '');
+            return filePath;
           }
         },
         files: {
@@ -152,27 +157,6 @@ module.exports = function(grunt) {
           },
           // Start the build with almond.
           name: 'almond',
-          // Compilation options.
-          generateSourceMaps: true,
-          optimize: 'none',
-          wrap: true
-        }
-      },
-      app: {
-        options: {
-          // Entry point.
-          include: 'main',
-          insertRequire: ['main'],
-          // Compilation target.
-          out: 'build/dist/js/app.js',
-          // Where do we find the modules?
-          baseUrl: 'build/js/',
-          // Any other dependencies.
-          paths: {
-            jquery: '../lib/jquery/jquery',
-            config: '../etc/config'
-          },
-          name: 'main',
           // Compilation options.
           generateSourceMaps: true,
           optimize: 'none',
@@ -335,7 +319,7 @@ module.exports = function(grunt) {
   // Build output.
   grunt.registerTask('build', ['css', 'js', 'compress', 'copy']);
   // Set up tasks to work in dev.
-  grunt.registerTask('dev', ['css', 'js', 'watch']);
+  grunt.registerTask('dev', ['css', 'js', 'copy', 'watch']);
   // Test runner suitable for CI.
   grunt.registerTask('test', ['jshint', 'scsslint', 'qunit']);
 
