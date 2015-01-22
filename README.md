@@ -6,7 +6,7 @@ WIP for a caffeine tracking web thing.
 This is for Ubuntu.  Unless otherwise stated, all commands should be run from the project's root directory.
 
 ### Node
-Install node and npm, best to use the [other repository]() and follow their instructions.
+Install node and npm, best to use the NodeSource repository and [follow these instructions](https://github.com/joyent/node/wiki/installing-node.js-via-package-manager#debian-and-ubuntu-based-linux-distributions).
 
 Install the grunt cli: `sudo npm install -g grunt-cli`
 
@@ -41,6 +41,8 @@ To set up an admin user run: `./django-admin createsuperuser` and follow the pro
 Root run `grunt` without arguments to see a list of available tasks.
 
 ### Django
-Run `./django-admin test` to check that the tests pass.
+Run: `./django-admin test` to check that the tests pass.
 
-Run `./django-admin runserver` to start the default dev server on `http://localhost:8000`
+Run: `./django-admin runserver` to start the default dev server on: `http://localhost:8000/`
+
+The admin interface can be found at: `http://localhost:8000/admin/`
