@@ -9,6 +9,8 @@
   text-decoration: none;
   //box-shadow: 1px 1px 1px $shadow;
 
+  -webkit-appearance: none; // iOS sigh :-(
+
   &:hover, &:active {
     border-color: $dark;
     color: $lighter;
